@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     "dj_rest_auth.registration"
 
-]
+]#python_requests
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,4 +141,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-# AUTH_USER_MODEL = 'auth_app.User'
+AUTH_USER_MODEL = 'auth_app.User'
