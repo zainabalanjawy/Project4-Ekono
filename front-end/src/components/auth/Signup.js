@@ -17,6 +17,7 @@ export default function Signup(props) {
     const registerHandler = (event) => {
         event.preventDefault()
         props.register(newuser)
+
     }
 
     return (
@@ -24,8 +25,8 @@ export default function Signup(props) {
             <h1>Sign Up</h1>
             <form>
                 <div>
-                    <label> First Name: </label>
-                    <input name="first_name" placeholder="first name" onChange={changeHandler}></input>
+                    <label> first Name: </label>
+                    <input name="first_name" placeholder="last name" onChange={changeHandler}></input>
                 </div>
                 <div>
                     <label> Last Name: </label>
@@ -37,11 +38,23 @@ export default function Signup(props) {
                 </div>
                 <div>
                     <label> Email: </label>
-                    <input name="email" placeholder="email" onChange={changeHandler}></input>
+                    <input name="email" placeholder="example@gmail.com" onChange={changeHandler}></input>
+                </div>
+                <div>
+                    <label> Address: </label>
+                    <input name="address" placeholder="first name" onChange={changeHandler}></input>
+                </div>
+                <div>
+                    <label> Budget </label>
+                    <input name="budget" placeholder="your monthly expected income" onChange={changeHandler}></input>
                 </div>
                 <div>
                     <label>Password: </label>
-                    <input name="password" placeholder="password" onChange={changeHandler}></input>
+                    <input name="password1" type="password" placeholder="password" onChange={changeHandler}></input>
+                </div>
+                <div>
+                    <label>Confirm Password: </label>
+                    <input name="password2" type="password" placeholder="password" onChange={changeHandler}></input>
                 </div>
                 <button onClick={registerHandler}>Sign Up</button>
                 <p>Already have an account? <a href='/signin'>Sign In</a></p>

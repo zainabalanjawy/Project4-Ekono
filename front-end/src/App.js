@@ -20,18 +20,17 @@ export default function App() {
         localStorage.remove('token')
         setIsAuth(false)
       }
-    
-    // return () => {
-    // }
   }, [])
   const registerHandler = (user) => {
-    axios.post('127.0.0.1:8000/auth/signup/', user) //method (.post), url (auth/signup), json data (user)
+    axios.post('http://127.0.0.1:8000/auth/register/', user)
       .then(res => {
-        console.log(res)
+        console.log('registerhandler response: ', res)
       }).catch(err => {
         console.log(err)
       })
+
   }
+
   const loginHandler = (credintials) => {
     console.log('login handler entered')
     axios.post('http://127.0.0.1:8000/auth/login/', credintials)
