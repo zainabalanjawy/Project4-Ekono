@@ -26,7 +26,7 @@ export default function Signup(props) {
             <form>
                 <div>
                     <label> first Name: </label>
-                    <input name="first_name" placeholder="last name" onChange={changeHandler}></input>
+                    <input name="first_name" placeholder="first name" onChange={changeHandler}></input>
                 </div>
                 <div>
                     <label> Last Name: </label>

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link , useNavigate, Navigate} from 'react
 import { useState, useEffect } from 'react'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
+import Profile from './components/auth/Profile'
 import axios from 'axios'
 import './App.css';
 
@@ -64,6 +65,7 @@ export default function App() {
           <div>
             <Link to='/signin'>Sign In</Link>
             <Link to='/signup'>Sign Up</Link>
+            <Link to='/profile'>Profile</Link>
             <Link to='/logout' onClick={logoutHandler}>Log Out</Link>
           </div>
         </nav>
@@ -75,6 +77,10 @@ export default function App() {
           <Route
             path='/signup'
             element={<Signup register={registerHandler}/>}
+          />
+          <Route
+            path='/profile'
+            element={<Profile/>}
           />
         </Routes>
       </BrowserRouter>
