@@ -1,9 +1,12 @@
-import { BrowserRouter, Routes, Route, Link , useNavigate, Navigate} from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } from 'react-router-dom'
+import CreateRecipet from './Recipet/Create'
+import ViewAllRecipet from './Recipet/ViewAll'
+import ViewRecipet from './Recipet/View'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
-import axios from 'axios'
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 export default function App() {
@@ -60,13 +63,15 @@ export default function App() {
   }
   return (
     <>
-      <BrowserRouter>
+      <Router>
         <nav>
           <div>
-            <Link to='/signin'>Sign In</Link>
-            <Link to='/signup'>Sign Up</Link>
-            <Link to='/profile'>Profile</Link>
-            <Link to='/logout' onClick={logoutHandler}>Log Out</Link>
+            <Link to='/signin'>Sign In</Link><br/>
+            <Link to='/signup'>Sign Up</Link><br/>
+            <Link to='/profile'>Profile</Link><br/>
+            <Link to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
+            <Link to="/CreateRecipet">Create Recipet</Link> <br/>
+            <Link to="/ViewAllRecipet">View All Recipet</Link> <br/>
           </div>
         </nav>
         <Routes>
@@ -82,8 +87,11 @@ export default function App() {
             path='/profile'
             element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}
           />
+          <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
+          <Route path="/ViewAllRecipet" element={<ViewAllRecipet></ViewAllRecipet>}/>
+          <Route path="/ViewRecipet" element={<ViewRecipet></ViewRecipet>}/>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </>
   );
 }

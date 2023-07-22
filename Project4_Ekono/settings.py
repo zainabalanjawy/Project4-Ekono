@@ -86,12 +86,21 @@ WSGI_APPLICATION = 'Project4_Ekono.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+import os
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
+BASE_DIR2 = Path(__file__).resolve().parent
+# Actual directory user files go to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR2), 'mediafiles')
+
+# URL used to access the media
+MEDIA_URL = '/media/'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ekono',
-        'USER': 'postgres',
+        'USER': os.getenv("USER"),
         'PASSWORD': '12345678'
     }
 }
