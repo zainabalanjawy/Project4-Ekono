@@ -94,8 +94,8 @@ export default function App() {
             element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}
           />
           <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
-          <Route path="/ViewAllRecipet" element={<ViewAllRecipet></ViewAllRecipet>}/>
-          <Route path="/ViewRecipet" element={<ViewRecipet></ViewRecipet>}/>
+          <Route path="/ViewAllRecipet"  element={isAuth ? <ViewAllRecipet user={user} /> : <Signin login={loginHandler} />}/>
+          <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
         </Routes>

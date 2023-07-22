@@ -3,6 +3,7 @@ from .models import Expenses
 # from .models import Recipet,Category,Expanse
 from .models import Recipet
 from .models import Category
+from auth_app.serializers import UserSerializer
 
 # Recipet class serializer 
 class RecipetSerializer(serializers.ModelSerializer):    
@@ -12,9 +13,7 @@ class RecipetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipet
-        fields = ['id', 'PlaceName', 'Amount', 'Categoty', 'Image']
-
-
+        fields = ['id', 'PlaceName', 'Amount', 'Categoty', 'Image','owner']
 
 # Category class serializer 
 class CategorySerializer(serializers.ModelSerializer):
@@ -22,9 +21,17 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
 
+    def get_categories_user(self, obj,request):
+        categories = Category.objects.filter(owner_id=request.user.id)
+        return categories
 
 # Expanse class serializer 
 class ExpanseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expenses
         fields = '__all__'
+
+
+class PopulateRecipetSerializer(RecipetSerializer):
+    Categoty=CategorySerializer()
+    #owner=UserSerializer()
