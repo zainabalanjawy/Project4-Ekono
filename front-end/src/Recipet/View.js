@@ -32,6 +32,7 @@ export default function View(props){
         <h4 >Categoty: {rec.Categoty}</h4>
         <h4 >Image: </h4>
         <img src={`${rec.Image}`}></img>
+        {/* <img src={`../mediafiles/${rec.Image.slice(rec.Image.lastIndexOf('/') + 1)}`}></img> */}
         <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => deleteHandler(rec.id)}>Delete</button>&nbsp;&nbsp;&nbsp;
     </Container>
     )

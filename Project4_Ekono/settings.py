@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'Project4_Ekono.wsgi.application'
 import os
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
-
+BASE_DIR2 = Path(__file__).resolve().parent
 # Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR2), 'mediafiles')
 
 # URL used to access the media
 MEDIA_URL = '/media/'
