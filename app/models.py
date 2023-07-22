@@ -7,8 +7,10 @@ from django.db import models
 
 
 # Category class model 
-# class Category(models.Model):
+class Category(models.Model):
+     Category_name = models.CharField(max_length=30)
+     Description = models.CharField(max_length=30)
+     Emojis = models.CharField(max_length=30)
 
-
-# Expanse class model 
-# class Expanse(models.Model):
+# def __str__(self):
+#      return f'{self.Category_name}{self.Description}{self.Emojis}
