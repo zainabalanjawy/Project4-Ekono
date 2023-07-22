@@ -4,14 +4,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router,Navigate, Route , Routes, Link } from 'react-router-dom'
-
+import { SaasProvider } from '@saas-ui/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
+  <React.StrictMode>
+    <SaasProvider>
     <App />
-  </Router>
+    </SaasProvider>
+  </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

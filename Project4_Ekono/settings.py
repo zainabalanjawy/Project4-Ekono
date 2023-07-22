@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # CORS
     "corsheaders"
 
-]
+]#python_requests
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,9 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     # CORS
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware"
 ]
 
 ROOT_URLCONF = 'Project4_Ekono.urls'
@@ -91,6 +90,13 @@ WSGI_APPLICATION = 'Project4_Ekono.wsgi.application'
 import os
 from dotenv import load_dotenv
 load_dotenv()  # take environment variables from .env.
+BASE_DIR2 = Path(__file__).resolve().parent
+# Actual directory user files go to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR2), 'mediafiles')
+
+# URL used to access the media
+MEDIA_URL = '/media/'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -149,8 +155,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-# AUTH_USER_MODEL = 'auth_app.User'
-
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
@@ -166,4 +170,9 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
+]
+AUTH_USER_MODEL = 'auth_app.User'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
 ]
