@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "dj_rest_auth",
-    "dj_rest_auth.registration"
+    "dj_rest_auth.registration",
+    "corsheaders"
 
 ]
 
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'Project4_Ekono.urls'
@@ -83,12 +85,21 @@ WSGI_APPLICATION = 'Project4_Ekono.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+import os
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
+
+# Actual directory user files go to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+
+# URL used to access the media
+MEDIA_URL = '/media/'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ekono',
-        'USER': 'postgres',
+        'USER': os.getenv("USER"),
         'PASSWORD': '12345678'
     }
 }
@@ -142,3 +153,7 @@ REST_FRAMEWORK = {
 }
 
 # AUTH_USER_MODEL = 'auth_app.User'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+] 

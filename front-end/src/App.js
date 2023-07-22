@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import CreateRecipet from './Recipet/Create'
+import ViewAllRecipet from './Recipet/ViewAll'
+import ViewRecipet from './Recipet/View'
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-function App() {
+
+// import jwt_decode from 'jwt-decode'
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <h1>Ekono App</h1>
+      <Router>
+        <nav>
+          <div>
+            <Link to="/CreateRecipet">Create Recipet</Link> &nbsp;
+            <Link to="/ViewAllRecipet">View All Recipet</Link> &nbsp;
+          </div>
+        </nav>
+          <Routes>
+          <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
+          <Route path="/ViewAllRecipet" element={<ViewAllRecipet></ViewAllRecipet>}/>
+          <Route path="/ViewRecipet" element={<ViewRecipet></ViewRecipet>}/>
+          </Routes>
+      </Router>
+      
+    </>
 
-export default App;
+
+
+  )
+}
