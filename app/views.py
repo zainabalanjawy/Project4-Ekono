@@ -1,14 +1,10 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListAPIView
-# from .models import Recipet,Category,Expanse
-from .models import Category
-# from .serializers import RecipetSerializer,CategorySerializer,ExpanseSerializer
-from .serializers import CategorySerializer
+from .models import Expenses,Category,Recipet
+from .serializers import ExpanseSerializer,CategorySerializer,RecipetSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
-from .models import Recipet
-from .serializers import RecipetSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 # Recipet class views
@@ -46,3 +42,22 @@ class CategoryUpdate(UpdateAPIView):
 
 
 # Expanse class views 
+class ExpanseCreate(ListCreateAPIView):
+   queryset = Expenses.objects.all()
+   serializer_class = ExpanseSerializer
+
+class ExpanseDelete(DestroyAPIView):
+   queryset = Expenses.objects.all()
+   serializer_class = ExpanseSerializer
+
+class ExpanseUpdate(UpdateAPIView):
+   queryset = Expenses.objects.all()
+   serializer_class = ExpanseSerializer
+
+class ExpanseList(ListAPIView):
+   queryset = Expenses.objects.all()
+   serializer_class = ExpanseSerializer
+
+class ExpanseDetails(RetrieveAPIView):
+   queryset = Expenses.objects.all()
+   serializer_class = ExpanseSerializer

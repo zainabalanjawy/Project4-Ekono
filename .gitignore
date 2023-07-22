@@ -1,5 +1,8 @@
 <<<<<<< HEAD
+=======
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> main
 # Django-related ignores
 *.log
 *.pot
@@ -22,7 +25,10 @@ build/
 # Ignore environment variables
 .env 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
 # Logs and temporary files
 *.log
 *.swp
@@ -31,6 +37,9 @@ build/
 *.pid
 *.cache
 *.DS_Store
+<<<<<<< HEAD
+Thumbs.db
+=======
 Thumbs.db
 =======
 __pycache__
@@ -38,4 +47,5 @@ __pycache__
 =======
 __pycache__
 mycode
+>>>>>>> main
 >>>>>>> main

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import Expenses
 # from .models import Recipet,Category,Expanse
 from .models import Recipet
 from .models import Category
@@ -23,4 +24,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 # Expanse class serializer 
-# class ExpanseSerializer(serializers.ModelSerializer):
+class ExpanseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Expenses
+        fields = '__all__'

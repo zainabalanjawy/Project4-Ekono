@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "dj_rest_auth",
     "dj_rest_auth.registration",
-     "corsheaders" #for login 
+    # CORS
+    "corsheaders"
 
 ]#python_requests
 
@@ -106,6 +107,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -153,6 +155,22 @@ REST_FRAMEWORK = {
     ]
 }
 
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+)
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 AUTH_USER_MODEL = 'auth_app.User'
 
 CORS_ALLOWED_ORIGINS = [

@@ -5,9 +5,13 @@ import ViewRecipet from './Recipet/View'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
+import CreateExpense from './components/CreateExpenses'
+import ListExpenses from './components/ListExpenses';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
+
+
 
 export default function App() {
   const [isAuth, setIsAuth] = useState(false) //check if user is logged in or not
@@ -72,6 +76,8 @@ export default function App() {
             <Link to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
             <Link to="/CreateRecipet">Create Recipet</Link> <br/>
             <Link to="/ViewAllRecipet">View All Recipet</Link> <br/>
+            <Link to="/Expenses/Create">Create Expense</Link>
+            <Link to="/Expenses/List">List Expense</Link>
           </div>
         </nav>
         <Routes>
@@ -90,6 +96,8 @@ export default function App() {
           <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
           <Route path="/ViewAllRecipet" element={<ViewAllRecipet></ViewAllRecipet>}/>
           <Route path="/ViewRecipet" element={<ViewRecipet></ViewRecipet>}/>
+          <Route path='/Expenses/Create'element={<CreateExpense />}  />
+          <Route path='/Expenses/List'element={<ListExpenses />}  />
         </Routes>
       </Router>
     </>
