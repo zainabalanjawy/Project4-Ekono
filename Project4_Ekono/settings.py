@@ -46,9 +46,10 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "dj_rest_auth",
-    "dj_rest_auth.registration"
+    "dj_rest_auth.registration",
+     "corsheaders" #for login 
 
-]
+]#python_requests
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware"
 ]
 
 ROOT_URLCONF = 'Project4_Ekono.urls'
@@ -141,4 +144,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-# AUTH_USER_MODEL = 'auth_app.User'
+AUTH_USER_MODEL = 'auth_app.User'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+]
