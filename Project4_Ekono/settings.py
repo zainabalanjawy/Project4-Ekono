@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "dj_rest_auth",
-    "dj_rest_auth.registration"
+    "dj_rest_auth.registration",
+    # CORS
+    "corsheaders"
 
 ]
 
@@ -58,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     # CORS
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'Project4_Ekono.urls'
@@ -83,15 +88,18 @@ WSGI_APPLICATION = 'Project4_Ekono.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+import os
+from dotenv import load_dotenv
+load_dotenv()  # take environment variables from .env.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ekono',
-        'USER': 'mariammerza',
+        'USER': os.getenv("USER"),
         'PASSWORD': '12345678'
     }
 }
+
 
 
 # Password validation
@@ -142,3 +150,20 @@ REST_FRAMEWORK = {
 }
 
 # AUTH_USER_MODEL = 'auth_app.User'
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+)
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]

@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+// import CreateExpense from '../components/CreateExpense';
+import {BrowserRouter as Router,Navigate, Route , Routes, Link, useNavigate} from 'react-router-dom'
+import CreateExpense from './components/CreateExpenses'
+import ListExpenses from './components/ListExpenses';
+import axios from 'axios';
+
 
 function App() {
+
   return (
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div class="topnav">
+           <li>
+              <Link to="/Expenses/Create">
+                Create Expense
+              </Link>
+
+              <Link to="/Expenses/List">
+                List Expense
+              </Link>
+            </li>
+    </div>
+    <Routes>
+       <Route path='/Expenses/Create'element={<CreateExpense />}  />
+       <Route path='/Expenses/List'element={<ListExpenses />}  />
+       </Routes>
+
     </div>
   );
 }
