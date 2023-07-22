@@ -17,12 +17,14 @@ const ListExpenses = () => {
     
 
     // }
-
-  return (
-    <div>
-
-     <h1>Your Expense</h1>
+  const allExp = Expenses.map((Exp, index)=> {
+    return(
+        <div>
+            <h1>Your Exp</h1>
+            <h2>{Exp.PlaceName}</h2>
         </div>
-  )
+    )
+    
+  })
 }
 export default ListExpenses;
