@@ -9,8 +9,6 @@ function CreateExpenses() {
   const [Catogries, setCatogries] = useState('');
   const [Amount, setAmount] = useState('');
 
-
-
   // const [newExpenses, setExpenses] = useState({
   //   PlaceName: '',
   //   Items: '',
@@ -45,7 +43,6 @@ function CreateExpenses() {
       console.log(error);
     }
     ); 
-    console.log("sklflkfsn")
   }
 
   return (

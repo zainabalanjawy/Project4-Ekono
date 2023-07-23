@@ -17,14 +17,38 @@ const ListExpenses = () => {
     
 
     // }
-  const allExp = Expenses.map((Exp, index)=> {
-    return(
-        <div>
-            <h1>Your Exp</h1>
-            <h2>{Exp.PlaceName}</h2>
+    const allExpense = Expenses.map((exp, index) => {
+        return (
+          <div class="col-lg-4 col-md-8">
+          <div class="card">
+            <div class="card-body">
+              {/* <img src="../../assets/img/team-2.jpg" alt="..." class="avatar avatar-lg border-radius-lg shadow mt-n5"/> */}
+              <div class="author">
+                <div class="name">
+                  <span>PlaceName: {exp.PlaceName}</span>
+                  <div class="stats">
+                    <small><i class="far fa-clock"></i>Items: {exp.Items}</small>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-4">Catogries: { exp.Catogries }</p>
+              <p class="mt-4">Amount: { exp.Amount }</p>
+              <button type="button" class="btn bg-gradient-primary btn-lg">Details
+              </button>
+            </div>
+          </div>
+          <br></br>
         </div>
+        
+      )
+      })
+
+    return (
+    <container>
+        <h1>All Expenses</h1>
+        {allExpense}
+    </container>
     )
-    
-  })
 }
+
 export default ListExpenses;
