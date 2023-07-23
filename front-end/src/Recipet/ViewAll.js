@@ -12,7 +12,13 @@ export default function ViewAll(props){
     }, [])
   
     const getAllRecipets = async () => {
-        const response = await axios.get(`http://127.0.0.1:8000/api/Recipet/create/`)
+      const token = localStorage.getItem("token")
+      console.log('tokkkken',token);
+        const response = await axios.get(`http://127.0.0.1:8000/api/Recipet/List/`,{
+          headers: {
+            'Authorization': `Token ${token}`
+          } 
+        })
         console.log(response)
         setRecipet(response.data)
     }
