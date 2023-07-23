@@ -1,15 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } from 'react-router-dom'
-import CreateRecipet from './Recipet/Create'
-import ViewAllRecipet from './Recipet/ViewAll'
-import ViewRecipet from './Recipet/View'
+import CreateRecipet from './components/Recipet/Create'
+import ViewAllRecipet from './components/Recipet/ViewAll'
+import ViewRecipet from './components/Recipet/View'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
 import CreateExpense from './components/CreateExpenses'
 import ListExpenses from './components/ListExpenses';
+import Category from './components/Category/Create'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
+import ListCateogry from './components/Category/List'
 
 
 
@@ -76,8 +78,10 @@ export default function App() {
             <Link to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
             <Link to="/CreateRecipet">Create Recipet</Link> <br/>
             <Link to="/ViewAllRecipet">View All Recipet</Link> <br/>
-            <Link to="/Expenses/Create">Create Expense</Link>
-            <Link to="/Expenses/List">List Expense</Link>
+            <Link to="/Expenses/Create">Create Expense</Link> <br/>
+            <Link to="/Expenses/List">List Expense</Link><br/>
+            <Link to="/Category/Create">Create Category</Link><br/>
+            <Link to="/Category/List">List Category</Link><br/>
           </div>
         </nav>
         <Routes>
@@ -98,6 +102,8 @@ export default function App() {
           <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
+          <Route path='/Category/Create'element={<Category />}  />
+          <Route path='/Category/List'element={<ListCateogry />}  />
         </Routes>
       </Router>
     </>
