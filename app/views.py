@@ -52,8 +52,23 @@ class RecipetDelete(DestroyAPIView):
 # Category class views 
 class CategoryCreate(ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    # queryset = Category.objects.all()
+    # serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    def post(self,request):
+        user = request.user
+        print ("uid",user.id)
+        data=request.data
+        data['owner']=user.id
+        print(data)
+        serializer = CategorySerializer(data=data)
+
+        if (serializer.is_valid()):
+            serializer.save()
+            return Response(serializer.data, status=200)
+        else:
+            return Response(status=404)
 
 class CategoryDelete(DestroyAPIView):
     queryset = Category.objects.all()
@@ -63,6 +78,12 @@ class CategoryUpdate(UpdateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+class CategoryList(ListAPIView):
+   queryset = Expenses.objects.all()
+   serializer_class = CategorySerializer
+   def get_queryset(self):
+    return Category.objects.filter(owner_id=self.request.user)
+   
 
 
 
