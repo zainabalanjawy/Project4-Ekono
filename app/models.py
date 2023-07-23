@@ -10,6 +10,7 @@ class Category(models.Model):
     Category_name = models.CharField(max_length=30)
     Description = models.CharField(max_length=30)
     Emojis = models.CharField(max_length=30)
+    owner= models.ForeignKey(User,related_name="users",on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.Category_name}'
   

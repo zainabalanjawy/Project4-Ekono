@@ -24,6 +24,8 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_categories_user(self, obj,request):
         categories = Category.objects.filter(owner_id=request.user.id)
         return categories
+class PopulateCategorySerializer(CategorySerializer):
+    Categoty=CategorySerializer()    
 
 # Expanse class serializer 
 class ExpanseSerializer(serializers.ModelSerializer):

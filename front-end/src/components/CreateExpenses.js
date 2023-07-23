@@ -6,10 +6,15 @@ import axios from 'axios';
 
 function CreateExpenses() {
 
+  const[Category,setCategory] = useState([])
+  const fetchCategory = async () =>{
+    const listCat = await axios.get('')
+  }
   const [PlaceName, setPlaceName] = useState('');
   const [Items, setItems] = useState('');  
   const [Catogries, setCatogries] = useState('');
   const [Amount, setAmount] = useState('');
+
 // categories
   // const [newExpenses, setExpenses] = useState({
   //   PlaceName: '',
