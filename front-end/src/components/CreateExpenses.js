@@ -2,13 +2,15 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 
 
+
+
 function CreateExpenses() {
 
   const [PlaceName, setPlaceName] = useState('');
   const [Items, setItems] = useState('');  
   const [Catogries, setCatogries] = useState('');
   const [Amount, setAmount] = useState('');
-
+// categories
   // const [newExpenses, setExpenses] = useState({
   //   PlaceName: '',
   //   Items: '',
@@ -54,11 +56,13 @@ function CreateExpenses() {
 
             <label for="Items">Items</label>
             <input type='text' id='Items' name='Items' value={Items} onChange={(e) => setItems(e.target.value)} required/> <br></br>
+{/* <select>
+  {}
+</select> */}
 
-
-            <label for="Catogries">Catogries</label>
+            <label for="Catogries">Categories</label>
             <input type='text' id='Catogries' name='Catogries' value={Catogries} onChange={(e) => setCatogries(e.target.value)}/><br></br>
-
+{/* {} */}
             <label for="Amount">Amount</label>
             <input type='number' id='Amount' name='Amount' value={Amount} onChange={(e) => setAmount(e.target.value)} required/><br></br>
 
