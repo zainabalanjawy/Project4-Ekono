@@ -25,28 +25,8 @@ export default function Signup(props) {
             <h1>Sign Up</h1>
             <form>
                 <div>
-                    <label> first Name: </label>
-                    <input type='text'name="first_name" placeholder="first name" onChange={changeHandler}></input>
-                </div>
-                <div>
-                    <label> Last Name: </label>
-                    <input type='text' name="last_name" placeholder="last name" onChange={changeHandler}></input>
-                </div>
-                <div>
                     <label> Username: </label>
                     <input type='text' name="username" placeholder="username" onChange={changeHandler}></input>
-                </div>
-                <div>
-                    <label> Email: </label>
-                    <input type="email" name="email" placeholder="example@gmail.com" onChange={changeHandler}></input>
-                </div>
-                <div>
-                    <label> Address: </label>
-                    <input type='text' name="address" placeholder="first name" onChange={changeHandler}></input>
-                </div>
-                <div>
-                    <label> Budget </label>
-                    <input type="number" name="budget" placeholder="your monthly expected income" onChange={changeHandler}></input>
                 </div>
                 <div>
                     <label>Password: </label>
