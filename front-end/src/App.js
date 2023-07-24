@@ -90,18 +90,15 @@ export default function App() {
         <nav>
           <div className='first-nav-div'>
             <Link className='link-item' to='/'>Home</Link><br/>
-            <Link className='link-item' to="/CreateRecipet">Create Recipet</Link> <br/>
-            <Link className='link-item' to="/ViewAllRecipet">View All Recipet</Link> <br/>
-            <Link className='link-item' to="/Expenses/Create">Create Expense</Link>
-            <Link className='link-item' to="/Expenses/List">List Expense</Link>
+            {/* <Link className='link-item' to="/CreateRecipet">Create Recipet</Link> <br/> */}
+            {/* <Link className='link-item' to="/ViewAllRecipet">View All Recipet</Link> <br/> */}
+            <Link className='link-item' to="/Expenses/Create">Create Expense</Link><br/>
+            <Link className='link-item' to="/Expenses/List">List Expense</Link><br/>
             <Link to="/Category/Create">Create Category</Link><br/>
             <Link to="/Category/List">List Category</Link><br/>
-            <Link to='/signin'>Sign In</Link><br/>
-            <Link to='/signup'>Sign Up</Link><br/>
-            <Link to='/profile'>Profile</Link><br/>
+            <Link className='link-item' to="/Dashboard">Dashboard</Link><br/>
             {/* <Link to="/Category/Delete">Delete </Link><br/> */}
             
-            <Link className='link-item' to="/Dashboard">Dashboard</Link>
           </div>
           <div className='second-nav-div'>
             <Link className='link-item' to='/signin'>Sign In</Link><br/>
@@ -133,7 +130,7 @@ export default function App() {
           <Route path='/Expenses/Details'element={<ExpenseDetails />} />
           <Route path='/Expenses/Edit'element={<EditExpense />} />
           <Route path='/Category/Create'element={<Category />}  />
-          <Route path='/Category/List'element={<ListCateogry />}  />
+          {/* <Route path='/Category/List'element={<ListCateogry />}  /> */}
           {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
         </Routes>
       </Router>

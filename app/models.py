@@ -39,4 +39,4 @@ class Expenses(models.Model):
     Date = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.PlaceName
+        return f'{self.Items} from {self.PlaceName}'
