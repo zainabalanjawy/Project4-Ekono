@@ -10,20 +10,10 @@ class Category(models.Model):
     Category_name = models.CharField(max_length=30)
     Description = models.CharField(max_length=30)
     Emojis = models.CharField(max_length=30)
+    owner= models.ForeignKey(User,related_name="users",on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.Category_name}'
-
-
-# Expanse class model 
-class Expenses(models.Model):
-    PlaceName = models.CharField(max_length=20)
-    Items = models.CharField(max_length=200)
-    Catogries = models.CharField(max_length=20)
-    Amount = models.FloatField(max_length=15)
-
-    def __str__(self):
-        return self.PlaceName
-    
+  
 # Recipet class model 
 class Recipet(models.Model):
     PlaceName = models.CharField(max_length=30)
@@ -34,3 +24,19 @@ class Recipet(models.Model):
 
     def __str__(self):
         return f'{self.Categoty} : {self.PlaceName}'
+    
+
+
+# Expanse class model 
+class Expenses(models.Model):
+
+    PlaceName = models.CharField(max_length=20)
+    Items = models.CharField(max_length=200)
+    Amount = models.FloatField(max_length=15)
+    owner = models.ForeignKey(User, related_name='User', on_delete=models.CASCADE)
+    Category=models.ForeignKey(Category, related_name='Category',on_delete=models.CASCADE, blank=True, null=True)
+    recipet = models.ForeignKey(Recipet,related_name='Recipt', on_delete=models.CASCADE,blank=True, null=True)
+    Date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.PlaceName
