@@ -5,9 +5,12 @@ import ViewRecipet from './components/Recipet/View'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
+import CreateExpense from './components/ِExpenses/CreateExpenses'
+import ListExpenses from './components/ِExpenses/ListExpenses';
+import ExpenseDetails from './components/ِExpenses/ExpensesDetils'
+import EditExpense from './components/ِExpenses/EditExpenses'
+
 import Home from './components/Home'
-import CreateExpense from './components/CreateExpenses'
-import ListExpenses from './components/ListExpenses';
 import Category from './components/Category/Create'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -112,6 +115,8 @@ export default function App() {
           <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
+          <Route path='/Expenses/Details'element={<ExpenseDetails />} />
+          <Route path='/Expenses/Edit'element={<EditExpense />} />
           <Route path='/Category/Create'element={<Category />}  />
           <Route path='/Category/List'element={<ListCateogry />}  />
           {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
