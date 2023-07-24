@@ -13,9 +13,8 @@ export default function Signin(props) {
         setNewUser(user) //set the newUser value to be what's in the variable user
     }
     //when the submit button clicked
-    const loginHandler = () => {
+    const loginHandler = (event) => {
         props.login(newUser)
-        console.log('newUser state:', newUser['username'])
     }
     return (
         <>
