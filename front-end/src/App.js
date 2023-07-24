@@ -11,7 +11,8 @@ import Category from './components/Category/Create'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-import ListCateogry from './components/Category/List'
+import ListCateogry from './components/Category/List';
+
 
 
 
@@ -82,6 +83,8 @@ export default function App() {
             <Link to="/Expenses/List">List Expense</Link><br/>
             <Link to="/Category/Create">Create Category</Link><br/>
             <Link to="/Category/List">List Category</Link><br/>
+            {/* <Link to="/Category/Delete">Delete </Link><br/> */}
+            
           </div>
         </nav>
         <Routes>
@@ -104,6 +107,7 @@ export default function App() {
           <Route path='/Expenses/List'element={<ListExpenses />}  />
           <Route path='/Category/Create'element={<Category />}  />
           <Route path='/Category/List'element={<ListCateogry />}  />
+          {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
         </Routes>
       </Router>
     </>
