@@ -47,10 +47,11 @@ export default function Create(){
           // recipet.append("Amount",res.data.totalAmount.data)
           // recipet.append("Categoty","uncategorized")
           console.log('recipt',recipet);
-
+          const token = localStorage.getItem("token")
           axios.post('http://127.0.0.1:8000/api/Recipet/create/', recipet , {
           headers: {
             "Content-Type": "multipart/form-data",
+            'Authorization': `Token ${token}`
         },
         })
           .then(res => {
