@@ -12,7 +12,8 @@ import Category from './components/Category/Create'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-import ListCateogry from './components/Category/List'
+import ListCateogry from './components/Category/List';
+
 
 
 
@@ -86,6 +87,8 @@ export default function App() {
             <Link to='/signin'>Sign In</Link><br/>
             <Link to='/signup'>Sign Up</Link><br/>
             <Link to='/profile'>Profile</Link><br/>
+            {/* <Link to="/Category/Delete">Delete </Link><br/> */}
+            
             <Link className='link-item' to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
           </div>
 
@@ -111,6 +114,7 @@ export default function App() {
           <Route path='/Expenses/List'element={<ListExpenses />}  />
           <Route path='/Category/Create'element={<Category />}  />
           <Route path='/Category/List'element={<ListCateogry />}  />
+          {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
         </Routes>
       </Router>
     </>
