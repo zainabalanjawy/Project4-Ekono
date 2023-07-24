@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from requests import request
-from rest_framework.generics import ListCreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListAPIView
+from rest_framework.generics import ListCreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListAPIView,CreateAPIView
 from .models import Expenses,Category,Recipet
 from .serializers import ExpanseSerializer,CategorySerializer,RecipetSerializer,PopulateRecipetSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -85,27 +85,16 @@ class CategoryList(ListAPIView):
      def get_queryset(self):
         return Category.objects.filter(owner_id=self.request.user)
      serializer_class = CategorySerializer
-
-
-    #  return Expenses.objects.filter(owner_id=self.request.user)
-    # serializer_class = ExpanseSerializer
-#     permission_classes = [IsAuthenticated]
-#     authentication_classes = [TokenAuthentication]
-#     queryset = Category.objects.all()
-#     def get_queryset(self):
-#     return Category.objects.filter(owner_id=self.request.user)
-#    serializer_class = CategorySerializer
- 
    
 
 # Expanse class views 
 class ExpanseCreate(ListCreateAPIView):
-#    queryset = Expenses.objects.all()
-#    serializer_class = ExpanseSerializer
+  
+#   
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
-   #  queryset = Recipet.objects.all()
-   #  serializer_class = RecipetSerializer
+    queryset = Expenses.objects.all()
+    serializer_class = ExpanseSerializer
 
     def post(self,request):
         user = request.user

@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } from 'react-router-dom'
-import CreateRecipet from '.components/Recipet/Create'
-import ViewAllRecipet from '.components/Recipet/ViewAll'
-import ViewRecipet from '.components/Recipet/View'
+import CreateRecipet from './components/Recipet/Create'
+import ViewAllRecipet from './components/Recipet/ViewAll'
+import ViewRecipet from './components/Recipet/View'
 import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
-import CreateExpense from './components/CreateExpenses'
-import ListExpenses from './components/ListExpenses';
+import CreateExpense from './components/ِExpenses/CreateExpenses'
+import ListExpenses from './components/ِExpenses/ListExpenses';
+import ExpenseDetails from './components/ِExpenses/ExpensesDetils'
+import EditExpense from './components/ِExpenses/EditExpenses'
+
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
@@ -98,6 +101,8 @@ export default function App() {
           <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
+          <Route path='/Expenses/Details'element={<ExpenseDetails />} />
+          <Route path='/Expenses/Edit'element={<EditExpense />} />
         </Routes>
       </Router>
     </>
