@@ -14,9 +14,7 @@ export default function Signin(props) {
     }
     //when the submit button clicked
     const loginHandler = (event) => {
-        // event.preventDefault()
         props.login(newUser)
-        // console.log('newUser state:', newUser['username'])
     }
     return (
         <>
