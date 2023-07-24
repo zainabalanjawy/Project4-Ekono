@@ -7,6 +7,9 @@ import { AttachmentIcon } from '@chakra-ui/icons'
 
 export default function Create(){
     const [file, setFile] = useState();
+    let [category, setCatogery] = useState([])
+    const [newCatogery, setnewCatogery] = useState({});
+    const [newExpanse, setnewExpanse] = useState({});
     const [isUploading, setIsUploading] = useState(false);
     const [recipet, setRecipet] = useState({
       PlaceName: "",
@@ -35,29 +38,103 @@ export default function Create(){
               'Content-Type': 'multipart/form-data',
               'apikey': "7bdc551026fe11ee8c1b2d7f43bc2713"
             } 
-          })
+          }).then(res => {
+
+
           console.log(res)
           setIsUploading(false);
           recipet['PlaceName']=res.data.merchantName.data
           recipet['Amount']= ("Amount",res.data.totalAmount.data)
           recipet['Categoty']=("Categoty","uncategorized" )
           recipet['Image']=file
-          // recipet.append('Image',file,file.name)
-          // recipet.append("PlaceName",res.data.merchantName.data)
-          // recipet.append("Amount",res.data.totalAmount.data)
-          // recipet.append("Categoty","uncategorized")
           console.log('recipt',recipet);
+          const token = localStorage.getItem("token")
 
-          axios.post('http://127.0.0.1:8000/api/Recipet/create/', recipet , {
-          headers: {
-            "Content-Type": "multipart/form-data",
-        },
-        })
-          .then(res => {
-            console.log(res)
-          }).catch(err => {
-            console.log(err)
-          })
+          const list = axios.get('http://127.0.0.1:8000/api/category/list/',{
+                headers: {
+                  'Authorization': `Token ${token}`
+                } 
+              }).then(res => {
+                console.log("returned categories",res.data)
+                setCatogery(res.data)
+                console.log("categories",category);
+                if(category!=null)
+                {
+    
+                  let cat = category.filter(function (el) {
+                    return el.Category_name == 'uncategorized'})
+
+                    console.log("categoryyy",cat);
+                  if(cat.length==0)
+                  {
+                    newCatogery.Category_name="uncategorized"
+                    newCatogery.Emojis="uncategorized"
+                    newCatogery.Description= "This is uncategorized category"
+                    console.log("cateee",category);
+                    axios.post('http://127.0.0.1:8000/api/category/create/', newCatogery ,{
+                      headers: {
+                        'Authorization': `Token ${token}`
+                      } 
+                    })
+                  .then(res => {
+                    console.log('category response: ', res)
+                    let catid= res.data.id
+                    recipet.Categoty=catid
+                axios.post('http://127.0.0.1:8000/api/Recipet/create/', recipet , {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                    'Authorization': `Token ${token}`
+                },
+                })
+                  .then(res => {
+                    console.log('recipt response: ', res)
+
+                    // axios.post('http://127.0.0.1:8000/api/Recipet/create/', recipet , {
+                    //   headers: {
+                    //     "Content-Type": "multipart/form-data",
+                    //     'Authorization': `Token ${token}`
+                    // },
+                    // })
+                  }).catch(err => {
+                    console.log(err)
+                  })
+                  }).catch(err => {
+                    console.log(err)
+                  })
+                  }
+                  else
+                  {
+                    let cat = category.filter(function (el) {
+                      return el.Category_name == 'uncategorized'})  
+                      console.log("fonud",cat);
+                    let catid= cat[0].id
+                    recipet.Categoty=catid
+                    axios.post('http://127.0.0.1:8000/api/Recipet/create/', recipet , {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                    'Authorization': `Token ${token}`
+                },
+                })
+                  .then(res => {
+                    console.log(res)
+                    // axios.post('http://127.0.0.1:8000/api/Expenses/Create/', recipet , {
+                    //   headers: {
+                    //     "Content-Type": "multipart/form-data",
+                    //     'Authorization': `Token ${token}`
+                    // },
+                    // })
+
+                  }).catch(err => {
+                    console.log(err)
+                  })
+                }
+                  }
+              }).catch(err => {
+                console.log(err)
+              })
+            }).catch(err => {
+              console.log(err)
+            })
         } catch (e) {
           console.error(e);
         }

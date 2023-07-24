@@ -87,6 +87,13 @@ class CategoryList(ListAPIView):
      serializer_class = CategorySerializer
    
 
+class CategoryView(ListAPIView):
+   permission_classes = [IsAuthenticated]
+   authentication_classes = [TokenAuthentication]
+   def get_queryset(self):
+    return Category.objects.filter(owner_id=self.request.user)
+   serializer_class = CategorySerializer
+
 # Expanse class views 
 class ExpanseCreate(ListCreateAPIView):
   

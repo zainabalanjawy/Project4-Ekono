@@ -10,9 +10,13 @@ import ListExpenses from './components/ِExpenses/ListExpenses';
 import ExpenseDetails from './components/ِExpenses/ExpensesDetils'
 import EditExpense from './components/ِExpenses/EditExpenses'
 
+import Home from './components/Home'
+import Category from './components/Category/Create'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
+import ListCateogry from './components/Category/List';
+
 
 
 
@@ -36,6 +40,8 @@ export default function App() {
     axios.post('http://127.0.0.1:8000/auth/register/', user)
       .then(res => {
         console.log('registerhandler response: ', res)
+        if(res.status == 204)
+        window.location.pathname = '/signin'
       }).catch(err => {
         console.log(err)
       })
@@ -54,7 +60,8 @@ export default function App() {
           // let response = axios.get(`http://127.0.0.1:8000/auth/${credintials['username']}/profile/`)
           setIsAuth(true)
           setUser(user)
-          return <Navigate to='/'/>
+          // event.preventDefault()
+          window.location.pathname = '/'
         }
       }).catch(err => {
         console.log(err.message)
@@ -72,16 +79,22 @@ export default function App() {
     <>
       <Router>
         <nav>
-          <div>
+          <div className='first-nav-div'>
+            <Link className='link-item' to='/'>Home</Link><br/>
+            <Link className='link-item' to="/CreateRecipet">Create Recipet</Link> <br/>
+            <Link className='link-item' to="/ViewAllRecipet">View All Recipet</Link> <br/>
+            <Link className='link-item' to="/Expenses/Create">Create Expense</Link>
+            <Link className='link-item' to="/Expenses/List">List Expense</Link>
+            <Link to="/Category/Create">Create Category</Link><br/>
+            <Link to="/Category/List">List Category</Link><br/>
             <Link to='/signin'>Sign In</Link><br/>
             <Link to='/signup'>Sign Up</Link><br/>
             <Link to='/profile'>Profile</Link><br/>
-            <Link to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
-            <Link to="/CreateRecipet">Create Recipet</Link> <br/>
-            <Link to="/ViewAllRecipet">View All Recipet</Link> <br/>
-            <Link to="/Expenses/Create">Create Expense</Link>
-            <Link to="/Expenses/List">List Expense</Link>
+            {/* <Link to="/Category/Delete">Delete </Link><br/> */}
+            
+            <Link className='link-item' to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
           </div>
+
         </nav>
         <Routes>
           <Route
@@ -96,6 +109,7 @@ export default function App() {
             path='/profile'
             element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}
           />
+          <Route path="/" element={<Home/>}/>
           <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
           <Route path="/ViewAllRecipet"  element={isAuth ? <ViewAllRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
@@ -103,6 +117,9 @@ export default function App() {
           <Route path='/Expenses/List'element={<ListExpenses />}  />
           <Route path='/Expenses/Details'element={<ExpenseDetails />} />
           <Route path='/Expenses/Edit'element={<EditExpense />} />
+          <Route path='/Category/Create'element={<Category />}  />
+          <Route path='/Category/List'element={<ListCateogry />}  />
+          {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
         </Routes>
       </Router>
     </>
