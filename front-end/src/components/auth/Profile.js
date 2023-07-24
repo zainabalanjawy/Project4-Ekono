@@ -51,12 +51,14 @@ export default function Profile(props) {
   }
   async function handleDeleteAccount(e){
     e.preventDefault()
+
     const response =  await axios.delete(`http://127.0.0.1:8000/auth/${user.id}/delete/`, user)
     try{
 
-      if(response.status == 200){
+      if(response.status === 204){
+        const token = localStorage.removeItem('token')
         console.log('Account deleted successfully')
-        window.location.pathname = '/'
+        navigate('/')
       }else{
         console.log('Something went wrong.')
       }
@@ -93,7 +95,7 @@ export default function Profile(props) {
             <label> Budget </label>
             <input type="number" name="budget" placeholder="your monthly expected income" value={user.budget}></input>
           </div>
-          <p><a href='#'>Change Password?</a></p>
+          {/* <p><a href='#'>Change Password?</a></p> */}
           <button onClick={handleEditProfile}>Edit Profile</button>
         </form>
       </>
@@ -114,7 +116,7 @@ export default function Profile(props) {
           </div>
           <div>
             <label> Username: </label>
-            <input type='text' name="username" placeholder={user.username} value={user.username}></input>
+            <input onChange={handleChange} type='text' name="username" placeholder={user.username} value={user.username}></input>
           </div>
           <div>
             <label> Email: </label>
@@ -130,7 +132,7 @@ export default function Profile(props) {
           </div>
           <input type="hidden" name="password" value={user.password}></input>
 
-          <p><a href='#'>Change Password?</a></p>
+          {/* <p><a href='#'>Change Password?</a></p> */}
           <button onClick={handleSubmitProfile}>Submit</button>
           <button onClick={handleDeleteAccount}>Delete Account Permenantly</button>
         </form>
