@@ -2,7 +2,7 @@ from django.shortcuts import render
 from requests import request
 from rest_framework.generics import ListCreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListAPIView,CreateAPIView
 from .models import Expenses,Category,Recipet
-from .serializers import ExpanseSerializer,CategorySerializer,RecipetSerializer,PopulateRecipetSerializer
+from .serializers import ExpanseSerializer,CategorySerializer,RecipetSerializer,PopulateRecipetSerializer,PopulateExpanseSerilizer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
@@ -124,7 +124,7 @@ class ExpanseList(ListAPIView):
     authentication_classes = [TokenAuthentication]
     def get_queryset(self):
      return Expenses.objects.filter(owner_id=self.request.user)
-    serializer_class = ExpanseSerializer
+    serializer_class = PopulateExpanseSerilizer
 #    queryset = Expenses.objects.all()
 #    serializer_class = ExpanseSerializer
 
