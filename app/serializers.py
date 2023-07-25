@@ -33,7 +33,16 @@ class ExpanseSerializer(serializers.ModelSerializer):
         model = Expenses
         fields = '__all__'
 
+    def get_Expanse_user(self,obj,request):
+        expenses = Expenses.objects.filter(owner_id= request.user.id)
+        return expenses
+
 
 class PopulateRecipetSerializer(RecipetSerializer):
     Categoty=CategorySerializer()
     #owner=UserSerializer()
+
+class PopulateExpanseSerilizer(ExpanseSerializer):
+    owner = UserSerializer()
+    Category= CategorySerializer()
+    Recipet = RecipetSerializer()
