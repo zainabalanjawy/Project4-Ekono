@@ -12,11 +12,12 @@ import EditExpense from './components/ِExpenses/EditExpenses'
 import Home from './components/Home'
 import Category from './components/Category/Create'
 import Dashboard from './components/user/Dashboard'
-import response from "./components/user/data.json"
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-// import ListCateogry from './components/Category/List';
+import ListCateogry from './components/Category/List';
+import ListEdit from './components/Category/ListEdit'
+
 
 
 
@@ -36,6 +37,32 @@ export default function App() {
         setIsAuth(false)
       }
   }, [])
+
+  // const deleteHandler = async (id) => {
+  //   try {
+  //     const response = await axios.delete(
+  //       `http://127.0.0.1:8000/api/category/${id}/delete/`
+  //     )
+  //     console.log("deleted successfully!")
+  //     navigate('/Delete/ViewAll')
+  //   } catch (error) {
+  //     console.log("Something went wrong", error)
+  //   }
+  // }
+
+const fetchCategory = async () => {
+    const token = localStorage.getItem("token")
+    console.log('tokkkken',token);
+    const response = await axios.get('http://127.0.0.1:8000/api/category/list/',{
+        headers: {
+          'Authorization': `Token ${token}`
+        } 
+      })
+    console.log(response.data)
+    // setCatogery(response.data)
+}
+
+
   const registerHandler = (user) => {
     axios.post('http://127.0.0.1:8000/auth/register/', user)
       .then(res => {
@@ -86,8 +113,11 @@ export default function App() {
             <Link className='link-item' to="/Expenses/Create">Create Expense</Link><br/>
             <Link className='link-item' to="/Expenses/List">List Expense</Link><br/>
             <Link to="/Category/Create">Create Category</Link><br/>
-            <Link to="/Category/List">List Category</Link><br/>
-            <Link className='link-item' to="/Dashboard">Dashboard</Link><br/>
+            
+            <Link to="/Category/ListEdit">Edit Categories </Link><br/>
+            <Link to='/signin'>Sign In</Link><br/>
+            <Link to='/signup'>Sign Up</Link><br/>
+            <Link to='/profile'>Profile</Link><br/>
             {/* <Link to="/Category/Delete">Delete </Link><br/> */}
             
           </div>
@@ -116,6 +146,8 @@ export default function App() {
           <Route path='/Expenses/Edit'element={<EditExpense />} />
           {/* CATEGORIES */}
           <Route path='/Category/Create'element={<Category />}  />
+          <Route path='/Category/List'element={<ListCateogry />}  />
+         
         </Routes>
       </Router>
     </>
