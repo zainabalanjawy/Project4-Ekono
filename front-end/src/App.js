@@ -6,9 +6,10 @@ import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
 import CreateExpense from './components/ِExpenses/CreateExpenses'
-import ListExpenses from './components/ِExpenses/ListExpenses';
+import ListExpenses from './components/ِExpenses/ListExpenses'
 import ExpenseDetails from './components/ِExpenses/ExpensesDetils'
 import EditExpense from './components/ِExpenses/EditExpenses'
+import Test from './components/ِExpenses/Test'
 
 import Home from './components/Home'
 import Category from './components/Category/Create'
@@ -119,6 +120,13 @@ const fetchCategory = async () => {
             <Link to='/signin'>Sign In</Link><br/>
             <Link to='/signup'>Sign Up</Link><br/>
             <Link to='/profile'>Profile</Link><br/>
+
+            <Link to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
+            <Link to="/CreateRecipet">Create Recipet</Link> <br/>
+            <Link to="/ViewAllRecipet">View All Recipet</Link> <br/>
+            {/* <Link to="/Expenses/Create">Create Expense</Link><br/>
+            <Link to="/Expenses/List">List Expense</Link><br/> */}
+            {/* <Link to="/Expenses/Test">Test</Link><br/> */}
             {/* <Link to="/Category/Delete">Delete </Link><br/> */}
             
             <Link className='link-item' to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
@@ -146,9 +154,12 @@ const fetchCategory = async () => {
           <Route path='/Expenses/List'element={<ListExpenses />}  />
           <Route path='/Expenses/Details'element={<ExpenseDetails />} />
           <Route path='/Expenses/Edit'element={<EditExpense />} />
+
+          <Route path='/Expenses/Test'element={<Test />} />
+
           <Route path='/Category/Create'element={<Category />}  />
           <Route path='/Category/List'element={<ListCateogry />}  />
-          <Route path='/Category/ListEdit'element={<ListEdit />}  />
+          {/* <Route path='/Category/ListEdit'element={<ListEdit />}  /> */}
         
           
 

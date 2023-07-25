@@ -4,7 +4,6 @@ import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 export default function ListEdit(props) {
-
     const navigate = useNavigate();
     const [showEditForm, setShowEditForm] = useState(false);
     const[Category,setCategory] = useState([]);
@@ -151,14 +150,11 @@ export default function ListEdit(props) {
                 </div>
 
                 <div>
-                     <label>Category: </label>
-                     <input type='text' name="Category" placeholder="Category" onChange={changeHandler} value={selectedExpenses.Category}></input> 
-                </div>
-                <div>
                   
                  <select name='Category'>
                 {category}
                  </select>
+
                  </div>
 
                 <button type="button" class="btn bg-gradient-primary btn-lg" onClick={saveExpense}>Save</button>

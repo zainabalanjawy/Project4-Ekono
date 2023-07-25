@@ -22,6 +22,7 @@ import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } fr
   }
   
     const [Expenses,setExpenses] = useState({})
+    
     const changeHandler = (e)=>{
       const expenses = {...Expenses}
       expenses[e.target.name] = e.target.value
@@ -49,9 +50,7 @@ import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } fr
   const category = Category.map((category, index) => {
     return(
       <>
-
         <option value={category.id}>{category.Category_name}</option>
-    
       </>
      
     )
@@ -71,10 +70,9 @@ import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } fr
             </div>
             <div>
                 <label> Categories </label>
-                <select name='categories' onChange={changeHandler}>
+                <select name='Category' onChange={changeHandler}>
                   {category}
                 </select>
-                {/* <input type='text' name="Categories" id="Categories" placeholder="Categories" onChange={changeHandler}></input> */}
             </div>
             <div>
                 <label> Amount </label>
