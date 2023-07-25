@@ -23,12 +23,6 @@ import './App.css';
 export default function App() {
   const [isAuth, setIsAuth] = useState(false) //check if user is logged in or not
   const [user, setUser] = useState({}) //store user token
-  const [show, setShow] = useState(false);
-  const [data, setData] = useState(false);  function dataHandler(e) {
-    e.preventDefault()
-    setData(response)
-    console.log(response)
-  }
 
   useEffect(() => {
     let token = localStorage.getItem('token')
@@ -41,10 +35,7 @@ export default function App() {
         localStorage.remove('token')
         setIsAuth(false)
       }
-      if(show){
-        setData(response)
-      }
-  }, [show])
+  }, [])
   const registerHandler = (user) => {
     axios.post('http://127.0.0.1:8000/auth/register/', user)
       .then(res => {
@@ -108,47 +99,25 @@ export default function App() {
 
         </nav>
         <Routes>
-          <Route
-            path='/signin'
-            element={<Signin login={loginHandler}/>}
-          />
-          <Route
-            path='/signup'
-            element={<Signup register={registerHandler}/>}
-          />
-          <Route
-            path='/profile'
-            element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}
-          />
+          {/* USER */}
           <Route path="/" element={<Home/>}/>
+          <Route path='/signin'element={<Signin login={loginHandler}/>}/>
+          <Route path='/signup' element={<Signup register={registerHandler}/>}/>
+          <Route path='/profile' element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}/>
+          <Route path='/dashboard'element={<Dashboard />}  />
+          {/* RECEIPT */}
           <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
           <Route path="/ViewAllRecipet"  element={isAuth ? <ViewAllRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
+          {/* EXPENSES */}
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
-          <Route path='/dashboard'element={<Dashboard />}  />
           <Route path='/Expenses/Details'element={<ExpenseDetails />} />
           <Route path='/Expenses/Edit'element={<EditExpense />} />
+          {/* CATEGORIES */}
           <Route path='/Category/Create'element={<Category />}  />
-          {/* <Route path='/Category/List'element={<ListCateogry />}  /> */}
-          {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
         </Routes>
       </Router>
-      <div className="App">
-      { show ?
-      <span>
-      <h2>Available charts</h2>
-      { show && data && data.charts.map((chartData, i) => (
-        <Dashboard chart={chartData} key={i}/>
-      ))}
-      </span>
-      : 
-      <h2>No charts available </h2>
-      }
-      <button onClick={() => setShow(!show)}>
-      { show ? "Hide data" : "Fetch data" }
-      </button>
-    </div>
     </>
   );
 }
