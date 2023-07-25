@@ -84,7 +84,9 @@ class CategoryList(ListAPIView):
    def get_queryset(self):
     return Category.objects.filter(owner_id=self.request.user)
    
-
+class CategoryRetrieveView(RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer    
 
 
 # Expanse class views 
