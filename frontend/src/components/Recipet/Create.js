@@ -1,5 +1,27 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Label,
+  FormGroup,
+  Form,
+  Input,
+  FormText,
+  NavItem,
+  NavLink,
+  Nav,
+  Table,
+  TabContent,
+  TabPane,
+  Container,
+  Row,
+  Col,
+  UncontrolledTooltip,
+  UncontrolledCarousel,
+} from "reactstrap";
 // import * as mindee from "mindee";
 
 // import { Container, Center, Text, Box, Button, Image, VStack, Link } from '@chakra-ui/react';
@@ -65,7 +87,7 @@ export default function Create(){
                     return el.Category_name == 'uncategorized'})
 
                     console.log("categoryyy",cat);
-                  if(cat.length==0)
+                  if(category.length==0)
                   {
                     newCatogery.Category_name="uncategorized"
                     newCatogery.Emojis="uncategorized"
@@ -88,13 +110,20 @@ export default function Create(){
                 })
                   .then(res => {
                     console.log('recipt response: ', res)
-
-                    // axios.post('http://127.0.0.1:8000/api/Recipet/create/', recipet , {
-                    //   headers: {
-                    //     "Content-Type": "multipart/form-data",
-                    //     'Authorization': `Token ${token}`
-                    // },
-                    // })
+                    newExpanse.PlaceName= res.data.PlaceName
+                    newExpanse.Items= ''
+                    newExpanse.Amount= res.data.Amount
+                    newExpanse.Category=res.data.Categoty
+                    newExpanse.recipet = res.data.id
+                    const date = new Date()
+                    newExpanse.Date = date
+                    console.log("new expanse", newExpanse);
+                    axios.post('http://127.0.0.1:8000/api/Expenses/Create/', newExpanse , {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Authorization': `Token ${token}`
+                    },
+                    })
                   }).catch(err => {
                     console.log(err)
                   })
@@ -117,12 +146,21 @@ export default function Create(){
                 })
                   .then(res => {
                     console.log(res)
-                    // axios.post('http://127.0.0.1:8000/api/Expenses/Create/', recipet , {
-                    //   headers: {
-                    //     "Content-Type": "multipart/form-data",
-                    //     'Authorization': `Token ${token}`
-                    // },
-                    // })
+                    console.log('recipt response: ', res)
+                    newExpanse.PlaceName= res.data.PlaceName
+                    newExpanse.Items= ''
+                    newExpanse.Amount= res.data.Amount
+                    newExpanse.Category=res.data.Categoty
+                    newExpanse.recipet = res.data.id
+                    const date = new Date()
+                    newExpanse.Date = date
+                    console.log("new expanse", newExpanse);
+                    axios.post('http://127.0.0.1:8000/api/Expenses/Create/', newExpanse , {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Authorization': `Token ${token}`
+                    },
+                    })
 
                   }).catch(err => {
                     console.log(err)
@@ -142,24 +180,24 @@ export default function Create(){
 
     return (
         <>
-      {/* <Box height="100vh" mt="30vh">
-        <Box textAlign="center">
-          <VStack mt={16}>
-            <VStack spacing={6}>
-              <Box>
+      <div height="100vh" mt="30vh">
+        <div textAlign="center">
+          <div mt={16}>
+            <div spacing={6}>
+              <div>
                 <label htmlFor="file-upload">
-                  <AttachmentIcon /> Click to select receipt
+                  Click to select receipt
                 </label>
                 <input id="file-upload" type="file" onChange={handleUploadFile}/>
-              </Box>
-          </VStack>
+              </div>
+          </div>
             
         <Button size="md" colorScheme="primary" onClick={submitPhoto}>
                     Upload photo
         </Button>
-</VStack>
-        </Box>
-      </Box> */}
+</div>
+        </div>
+      </div>
     </>
     )
 }
