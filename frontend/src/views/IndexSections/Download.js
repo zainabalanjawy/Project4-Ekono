@@ -241,14 +241,14 @@ export default function Download() {
                     <img
                       alt="..."
                       className="img-center img-fluid"
-                      // src={require("assets/img/fatimaAvatar.png")}
+                      src={require("assets/img/fatimaAvatar.png")}
                     />
                   </CardHeader>
                   <CardBody>
                     <Row>
                       <Col className="text-center" md="12">
                         <h4 className="text-uppercase">Fatima Mohmmed</h4>
-                        <span>"</span>
+                        <span>"Always think about happy things then you will never be sad.</span>
                         <hr className="line-primary" />
                       </Col>
                     </Row>
