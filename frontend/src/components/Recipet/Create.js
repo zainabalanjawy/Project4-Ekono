@@ -140,7 +140,7 @@ export default function Create(){
                     // const date = new Date()
                     // newExpanse.Date = date
                     console.log("new expanse", newExpanse);
-                    axios.post('http://127.0.0.1:8000/api/Expenses/Create/', newExpanse , {
+                    axios.post('http://127.0.0.1:8000/api/Expenses/Creates/', newExpanse , {
                       headers: {
                         "Content-Type": "multipart/form-data",
                         'Authorization': `Token ${token}`
@@ -178,7 +178,7 @@ export default function Create(){
                     // newExpanse.Date = date
                     const token = localStorage.getItem("token")
                     console.log("new expanse", newExpanse);
-                    axios.post('http://127.0.0.1:8000/api/Expenses/Create/', newExpanse , {
+                    axios.post('http://127.0.0.1:8000/api/Expenses/Creates/', newExpanse , {
                       headers: {
                         "Content-Type": "multipart/form-data",
                         'Authorization': `Token ${token}`

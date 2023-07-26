@@ -1,7 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-export default function ListEdit(props) {
+import { useNavigate, Link } from 'react-router-dom';
+import HomeNavbar from "components/Navbars/HomeNavbar.js";
+import PerfectScrollbar from "perfect-scrollbar";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Label,
+  FormGroup,
+  Form,
+  Input,
+  FormText,
+  NavItem,
+  NavLink,
+  Nav,
+  Table,
+  TabContent,
+  TabPane,
+  Container,
+  Row,
+  Col,
+  UncontrolledTooltip,
+  UncontrolledCarousel,
+} from "reactstrap";
+import Footer from 'components/Footer/Footer';
+const carouselItems = [
+  {
+    src: require("assets/img/denys.jpg"),
+    altText: "Slide 1",
+    caption: "Big City Life, United States",
+  },
+  {
+    src: require("assets/img/fabien-bazanegue.jpg"),
+    altText: "Slide 2",
+    caption: "Somewhere Beyond, United States",
+  },
+  {
+    src: require("assets/img/mark-finn.jpg"),
+    altText: "Slide 3",
+    caption: "Stocks, United States",
+  },
+];
+let ps = null;
+export default function ListExpenses(props) {
+  const [tabs, setTabs] = React.useState(1);
+  React.useEffect(() => {
+    if (navigator.platform.indexOf("Win") > -1) {
+      document.documentElement.className += " perfect-scrollbar-on";
+      document.documentElement.classList.remove("perfect-scrollbar-off");
+      let tables = document.querySelectorAll(".table-responsive");
+      for (let i = 0; i < tables.length; i++) {
+        ps = new PerfectScrollbar(tables[i]);
+      }
+    }
+    document.body.classList.toggle("profile-page");
+    // Specify how to clean up after this effect:
+  }, []);
     const navigate = useNavigate();
     const [showEditForm, setShowEditForm] = useState(false);
     const[Category,setCategory] = useState([]);
@@ -95,66 +151,188 @@ export default function ListEdit(props) {
         const { name, value } = e.target;
         setSelectedExpenses((prevExp) => ({ ...prevExp, [name]: value }));
     };
+    React.useEffect(() => {
+      document.body.classList.toggle("landing-page");
+      // Specify how to clean up after this effect:
+      return function cleanup() {
+        document.body.classList.toggle("landing-page");
+      };
+    }, []);
     const allExpense = Expenses.map((exp, index) => {
         return (
-            <div class="col-lg-4 col-md-8" key={index}>
-                <div class="card">
+          <>
+        <HomeNavbar />
+            <div class="card-new" key={index}>
                     <div class="card-body">
-                        <div class="author">
-                            <div class="name">
-                                <span>Place Name: {exp.PlaceName}</span>
-                                <div class="stats">
-                                    <small><i class="far fa-clock"></i>Items: {exp.Items}</small>
-                                </div>
-                                <div>
-                                <label>Category: {exp.Category.Category_name}  </label>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-4">Amount: {exp.Amount}</p>
-                        <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => deleteHandler(exp.id)}>Delete</button>
-                        <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => editHandler(exp.id)}>Edit</button>
-                    </div>
+                      <h5 class="card-title">{exp.PlaceName}</h5>
+                      <p class="card-text">Items: {exp.Items}</p>
+                      <p class="card-text">Category: {exp.Category.Category_name} </p>
+                      <p class="card-text">Amount: {exp.Amount}</p>
+                        <Button type="button" color='danger' class="btn bg-gradient-danger btn-lg" onClick={() => deleteHandler(exp.id)}>Delete</Button>
+                        <Button type="button" color='danger' class="btn bg-gradient-danger btn-lg" onClick={() => editHandler(exp.id)}>Edit</Button>
                 </div>
-                <br/>
             </div>
+            </>
         );
     });
     if (!showEditForm) {
         return (
             <div>
-                <h1>All Expense</h1>
-                {allExpense}
-            </div>
-        );
+            <HomeNavbar />
+            <div className="wrapper">
+            <div className="page-header">
+             <img
+                alt="..."
+                className="dots"
+                src={require("assets/img/dots.png")}
+              />
+            <img
+              alt="..."
+              className="path"
+              src={require("assets/img/path4.png")}
+            />
+            <Container className="align-items-center">
+            <Row>
+              <Col lg="6" md="6">
+                <h1 className="profile-title text-left">View All Expenses</h1>
+                <h5 className="text-on-back">Expenses</h5>
+                <p className="profile-description">
+                You need to track expenses to become aware of your spending.
+                </p>
+              </Col>
+            </Row>
+            <div className="btn-wrapper mb-3">
+                  <p className="category text-success d-inline">
+                    Create Expenses
+                  </p>
+                    <Button tag={Link} to="/Expenses/Create"
+                    className="btn-link"
+                    color="success"
+                    size="sm"
+                  >
+                    <i className="tim-icons icon-minimal-right" />
+                  </Button>
+                </div>
+          </Container>
+         </div>
+        <Row>
+        {allExpense}
+        </Row>
+        <Footer />
+      </div>
+      </div>
+      );
     } else {
         return (
             <div>
-                <h1>Edit Expenses</h1>
-                <div>
-                    <label>place Name: </label>
-                    <input type='text' name="PlaceName" placeholder="PlaceName" onChange={changeHandler} value={selectedExpenses.PlaceName}></input>
-                    <input class="form-control" type="hidden" name="id" value={selectedExpenses.id} onChange={changeHandler} />
+            <HomeNavbar />
+            <div className="wrapper">
+              <div className="page-header">
+                <img
+                  alt="..."
+                  className="dots"
+                  src={require("assets/img/dots.png")}
+                />
+                <img
+                  alt="..."
+                  className="path"
+                  src={require("assets/img/path4.png")}
+                />
+                <Container className="align-items-center">
+                  <Row>
+                    <Col lg="6" md="6">
+                      <h1 className="profile-title text-left">Edit Expenses</h1>
+                      <h5 className="text-on-back">Expenses</h5>
+                    </Col>
+                  </Row>
+                  <Col md="6">
+                <Card className="card-plain">
+                  <CardBody>
+                    <Form>
+                      <Row>
+                        <Col md="12">
+                          <FormGroup>
+                          <label>place Name: </label>
+                          <Input type='text' name="PlaceName" placeholder="PlaceName" onChange={changeHandler} value={selectedExpenses.PlaceName}/>
+                          <Input class="form-control" type="hidden" name="id" value={selectedExpenses.id} onChange={changeHandler} />
+                          </FormGroup>
+                        </Col>
+                        <Col md="12">
+                          <FormGroup>
+                          <label>Items: </label>
+                          <Input type='text' name="Items" placeholder="Items" onChange={changeHandler} value={selectedExpenses.Items}/>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="12">
+                          <FormGroup>
+                            <label>Amount</label>
+                            <Input type='text' name="Amount" placeholder="Amount" onChange={changeHandler} value={selectedExpenses.Amount}/>
+                          </FormGroup>
+                        </Col>
+                        <Col md="12">
+                        <FormGroup>
+                            <label>Category</label>
+                            <div class= "selectcontainer">
+                            <div class="selectExp">
+                            <select name='Category' onChange={changeHandler}>
+                            {category}
+                            </select>
+                            </div>
+                          </div>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Button
+                        className="btn-round float-right"
+                        color="primary"
+                        data-placement="right"
+                        id="tooltip341148792"
+                        type="button"
+                        onClick={saveExpense}
+                      >
+                        Save
+                      </Button>
+                      <UncontrolledTooltip
+                        delay={0}
+                        placement="right"
+                        target="tooltip341148792"
+                      >
+                      </UncontrolledTooltip>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col className="ml-auto" md="4">
+                <div className="info info-horizontal">
                 </div>
-                <div>
-                    <label>Items: </label>
-                    <input type='text' name="Items" placeholder="Items" onChange={changeHandler} value={selectedExpenses.Items}></input>
+                <div className="info info-horizontal">
                 </div>
-                <div>
-                     <label>Amount: </label>
-                    <input type='text' name="Amount" placeholder="Amount" onChange={changeHandler} value={selectedExpenses.Amount}></input>
+                </Col>
+                </Container>
+              </div>
+              <Row>
+          <div>
+          <div className="section">
+        </div>
+        <section className="section">
+          <Container>
+            <Row>
+              <Col className="ml-auto" md="4">
+                <div className="info info-horizontal">
                 </div>
-                {/* <div>
-                     <label>Category: </label>
-                     <input type='text' name="Category" placeholder="Category" onChange={changeHandler} value={selectedExpenses.Category}></input>
-                </div> */}
-                <div>
-                <select name='Category' onChange={changeHandler}>
-                {category}
-                </select>
-                 </div>
-                <button type="button" class="btn bg-gradient-primary btn-lg" onClick={saveExpense}>Save</button>
-            </div>
+                <div className="info info-horizontal">
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+          </div>
+              </Row>
+              <Footer />
+              </div>
+              </div>
         );
     }
 }

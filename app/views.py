@@ -95,6 +95,30 @@ class CategoryRetrieveView(RetrieveAPIView):
 
 # Expanse class views 
 class ExpanseCreate(ListCreateAPIView):
+
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    queryset = Expenses.objects.all()
+    # serializer_class = ExpanseSerializer
+
+    def post(self,request):
+        # request.data._mutable = True
+        print('dataaaaaaaaaaaaa',request.data)
+        user = request.user
+        print ("uid",user.id)
+        data=request.data
+        data['owner']=user.id
+        print(data)
+        serializer = ExpanseSerializer(data=data)
+
+        if (serializer.is_valid()):
+            serializer.save()
+            return Response(serializer.data, status=200)
+        else:
+            return Response(status=404)
+    
+class ExpanseCreates(ListCreateAPIView):
+
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     queryset = Expenses.objects.all()
@@ -115,8 +139,7 @@ class ExpanseCreate(ListCreateAPIView):
             return Response(serializer.data, status=200)
         else:
             return Response(status=404)
-    
-
+        
 class ExpanseDelete(DestroyAPIView):
    queryset = Expenses.objects.all()
    serializer_class = ExpanseSerializer

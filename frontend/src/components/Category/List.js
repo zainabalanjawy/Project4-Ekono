@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect,} from 'react';
-
+import * as emoji from 'node-emoji'
 import { Link } from 'react-router-dom';
 import HomeNavbar from "components/Navbars/HomeNavbar.js";
 import FooterHome from "components/Footer/FooterHome.js";
@@ -63,38 +63,79 @@ export default function List(props){
     // Specify how to clean up after this effect:
 
   }, []);
-    // const list category = () => {
-        const [category, setCatogery] = useState([])
-        const navigate = useNavigate();
-        // const UpdateHandler = any
-        const deleteHandler = async (id) => {
-            try {
-              const response = await axios.delete(
-                `http://127.0.0.1:8000/api/category/${id}/delete/`
-              )
-              console.log("deleted successfully!")
-              navigate('/Category/List')
-            } catch (error) {
-              console.log("Something went wrong", error)
-            }
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({
+      id: '',
+      Category_name: '',
+      Description: '',
+      owner: '',
+      Emojis: ''
+  });
+
+
+  useEffect(() => {
+      fetchCategories();
+  }, []);
+
+  const deleteHandler = async (id) => {
+      try {
+          const response = await axios.delete(
+              `http://127.0.0.1:8000/api/category/${id}/delete/`
+          );
+          console.log("deleted successfully!");
+          window.location.reload(false)
+          // navigate('/Delete/ViewAll');
+      } catch (error) {
+          console.log("Something went wrong", error);
+      }
+  };
+
+  const fetchCategories = async () => {
+      const token = localStorage.getItem("token");
+      console.log('tokkkken', token);
+      const response = await axios.get('http://127.0.0.1:8000/api/category/list/', {
+          headers: {
+              'Authorization': `Token ${token}`
           }
-      
-        const fetchCategory = async () => {
-            const token = localStorage.getItem("token")
-            console.log('tokkkken',token);
-            const list = await axios.get('http://127.0.0.1:8000/api/category/list/',{
-                headers: {
-                  'Authorization': `Token ${token}`
-                } 
-              })
-            console.log(list.data)
-            setCatogery(list.data)
-        }
-        useEffect(() => {
-            fetchCategory();
-        }, [])
-    // }
-    const allCategory = category.map((cat, index) => {
+      });
+      console.log(response.data);
+      setCategories(response.data);
+  };
+  const saveCategory = async () => {
+      try {
+          const response = await axios.put(
+              `http://127.0.0.1:8000/api/category/${selectedCategory.id}/update/`,
+              selectedCategory
+          );
+          console.log("Category updated successfully!");
+          setShowEditForm(false); // Hide the edit form after saving
+          fetchCategories(); // Refresh the category list
+          window.location.pathname = '/category/ListEdit'
+      } catch (error) {
+          console.log("Error updating category:", error);
+      }
+  };
+
+  const editHandler = async (id) => {
+      setShowEditForm(true);
+      try {
+          const response = await axios.get(
+              `http://127.0.0.1:8000/api/category/${id}/retrieve/`
+          );
+          console.log("Fetched category data for editing:", response.data);
+          setSelectedCategory(response.data);
+          setShowEditForm(true);
+      } catch (error) {
+          console.log("Error fetching category data for editing:", error);
+      }
+  };
+
+  const changeHandler = (e) => {
+      const { name, value } = e.target;
+      setSelectedCategory((prevCategory) => ({ ...prevCategory, [name]: value }));
+  };
+    const allCategory = categories.map((cat, index) => {
         return (
           <div class="col-sm-6">
           <div class="card">
@@ -106,35 +147,38 @@ export default function List(props){
             </div>
           </div>
         </div>
-  
-        //   <div class="col-lg-4 col-md-8">
-        //   <div class="card">
-        //     <div class="card-body">
-              
-        //       <div class="author">
-        //         <div class="name">
-        //           <span>Cateogry name: {cat.Category_name}</span>
-        //           <div class="stats">
-        //             <small><i class="far fa-clock"></i>Description: {cat.Description}</small>
-        //           </div>
-        //         </div>
-
-        //         <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => deleteHandler(cat.id)}>Delete</button>
-        //       </div>
-        //       <p class="mt-4">Emojes: { cat.Emojis }</p>
-        //       <p class="mt-4">Owner: { cat.owner }</p>
-        //       {/* <button type="button" class="btn bg-gradient-primary btn-lg">Details
-        //       </button> */}
-        //       <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => deleteHandler(cat.id)}>Delete</button>
-        //       {/* <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => UpdateHandler(cat.id)}>Edit</button> */}
-              
-              
-        //     </div>
-        //   </div>
-        //   <br></br>
-        // </div>
       )
       })
+
+
+      if (showEditForm) {
+        return (
+          <div>
+              <h1>Edit Category</h1>
+              <div>
+                  <label>Category name</label>
+                  <input type='text' name="Category_name" placeholder="Category_name" onChange={changeHandler} value={selectedCategory.Category_name}></input>
+                  <input class="form-control" type="hidden" name="id" value={selectedCategory.id} onChange={changeHandler} />
+              </div>
+              <div>
+                  <label>Description</label>
+                  <input type='text' name="Description" placeholder="Description" onChange={changeHandler} value={selectedCategory.Description}></input>
+              </div>
+              <div>
+                  <label>owner:</label>
+                  <input type='text' name="owner" placeholder="owner" value={selectedCategory.owner}></input>
+              </div>
+              <div>
+                  <label>Emojis</label>
+                  <input type="text" name="Emojis" placeholder="Emojis" onChange={changeHandler} value={selectedCategory.Emojis}></input>
+              </div>
+              {/* Add a save button to submit the edited category */}
+              <button type="button" class="btn bg-gradient-primary btn-lg" onClick={saveCategory}>Save</button>
+          </div>
+      );
+    }
+    else
+    {
     return (
       <>
       <HomeNavbar />
@@ -179,145 +223,6 @@ export default function List(props){
                  </div>
            </Container>
          </div>
- 
-         {/* <div className="section">
-           <Container>
-             <Row className="justify-content-between">
-               <Col md="6">
-                 <Row className="justify-content-between align-items-center">
-                   <UncontrolledCarousel items={carouselItems} />
-                 </Row>
-               </Col>
-               <Col md="5">
-                 <h1 className="profile-title text-left">Projects</h1>
-                 <h5 className="text-on-back">02</h5>
-                 <p className="profile-description text-left">
-                   An artist of considerable range, Ryan — the name taken by
-                   Melbourne-raised, Brooklyn-based Nick Murphy — writes,
-                   performs and records all of his own music, giving it a warm,
-                   intimate feel with a solid groove structure. An artist of
-                   considerable range.
-                 </p>
-                 <div className="btn-wrapper pt-3">
-                   <Button
-                     className="btn-simple"
-                     color="primary"
-                     href="#pablo"
-                     onClick={(e) => e.preventDefault()}
-                   >
-                     <i className="tim-icons icon-book-bookmark" /> Bookmark
-                   </Button>
-                   <Button
-                     className="btn-simple"
-                     color="info"
-                     href="#pablo"
-                     onClick={(e) => e.preventDefault()}
-                   >
-                     <i className="tim-icons icon-bulb-63" /> Check it!
-                   </Button>
-                 </div>
-               </Col>
-             </Row>
-           </Container>
-         </div>
-         <section className="section">
-           <Container>
-             <Row>
-               <Col md="6">
-                 <Card className="card-plain">
-                   <CardHeader>
-                     <h1 className="profile-title text-left">Contact</h1>
-                     <h5 className="text-on-back">03</h5>
-                   </CardHeader>
-                   <CardBody>
-                     <Form>
-                       <Row>
-                         <Col md="6">
-                           <FormGroup>
-                             <label>Your Name</label>
-                             <Input defaultValue="Mike" type="text" />
-                           </FormGroup>
-                         </Col>
-                         <Col md="6">
-                           <FormGroup>
-                             <label>Email address</label>
-                             <Input placeholder="mike@email.com" type="email" />
-                           </FormGroup>
-                         </Col>
-                       </Row>
-                       <Row>
-                         <Col md="6">
-                           <FormGroup>
-                             <label>Phone</label>
-                             <Input defaultValue="001-12321345" type="text" />
-                           </FormGroup>
-                         </Col>
-                         <Col md="6">
-                           <FormGroup>
-                             <label>Company</label>
-                             <Input defaultValue="CreativeTim" type="text" />
-                           </FormGroup>
-                         </Col>
-                       </Row>
-                       <Row>
-                         <Col md="12">
-                           <FormGroup>
-                             <label>Message</label>
-                             <Input placeholder="Hello there!" type="text" />
-                           </FormGroup>
-                         </Col>
-                       </Row>
-                       <Button
-                         className="btn-round float-right"
-                         color="primary"
-                         data-placement="right"
-                         id="tooltip341148792"
-                         type="button"
-                       >
-                         Send text
-                       </Button>
-                       <UncontrolledTooltip
-                         delay={0}
-                         placement="right"
-                         target="tooltip341148792"
-                       >
-                         Can't wait for your message
-                       </UncontrolledTooltip>
-                     </Form>
-                   </CardBody>
-                 </Card>
-               </Col>
-               <Col className="ml-auto" md="4">
-                 <div className="info info-horizontal">
-                   <div className="icon icon-primary">
-                     <i className="tim-icons icon-square-pin" />
-                   </div>
-                   <div className="description">
-                     <h4 className="info-title">Find us at the office</h4>
-                     <p>
-                       Bld Mihail Kogalniceanu, nr. 8, <br />
-                       7652 Bucharest, <br />
-                       Romania
-                     </p>
-                   </div>
-                 </div>
-                 <div className="info info-horizontal">
-                   <div className="icon icon-primary">
-                     <i className="tim-icons icon-mobile" />
-                   </div>
-                   <div className="description">
-                     <h4 className="info-title">Give us a ring</h4>
-                     <p>
-                       Michael Jordan <br />
-                       +40 762 321 762 <br />
-                       Mon - Fri, 8:00-22:00
-                     </p>
-                   </div>
-                 </div>
-               </Col>
-             </Row>
-           </Container>
-         </section> */}
          <Row>
          {allCategory}
          </Row>
@@ -327,4 +232,5 @@ export default function List(props){
  
      </>
     )
+    }
 }
