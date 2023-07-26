@@ -97,7 +97,6 @@ class ExpanseCreate(ListCreateAPIView):#
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     queryset = Expenses.objects.all()
-    serializer_class = ExpanseSerializer
 
     def post(self,request):
         print('dataaaaaaaaaaaaa',request.data)
