@@ -2,7 +2,7 @@ from django.shortcuts import render
 from requests import request
 from rest_framework.generics import ListCreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListAPIView,CreateAPIView
 from .models import Expenses,Category,Recipet
-from .serializers import ExpanseSerializer,CategorySerializer,RecipetSerializer,PopulateRecipetSerializer,PopulateExpanseSerilizer
+from .serializers import ExpanseSerializer,CategorySerializer,RecipetSerializer,PopulateRecipetSerializer, PopulateExpanseSerilizer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
@@ -79,28 +79,21 @@ class CategoryUpdate(UpdateAPIView):
     serializer_class = CategorySerializer
 
 class CategoryList(ListAPIView):
-
-   queryset = Expenses.objects.all()
-   serializer_class = CategorySerializer
-   def get_queryset(self):
-    return Category.objects.filter(owner_id=self.request.user)
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    queryset = Expenses.objects.all()
+    serializer_class = CategorySerializer
+    def get_queryset(self):
+        return Category.objects.filter(owner_id=self.request.user)
    
 class CategoryRetrieveView(RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer    
 
 
-class CategoryView(ListAPIView):
-   permission_classes = [IsAuthenticated]
-   authentication_classes = [TokenAuthentication]
-   def get_queryset(self):
-    return Category.objects.filter(owner_id=self.request.user)
-   serializer_class = CategorySerializer
 
-# Expanse class views 
-class ExpanseCreate(ListCreateAPIView):
-  
-#   
+# Expense class views 
+class ExpanseCreate(ListCreateAPIView):#   
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     queryset = Expenses.objects.all()
@@ -136,8 +129,6 @@ class ExpanseList(ListAPIView):
     def get_queryset(self):
      return Expenses.objects.filter(owner_id=self.request.user)
     serializer_class = PopulateExpanseSerilizer
-#    queryset = Expenses.objects.all()
-#    serializer_class = ExpanseSerializer
 
 class ExpanseDetails(RetrieveAPIView):
    queryset = Expenses.objects.all()

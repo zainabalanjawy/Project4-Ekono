@@ -11,11 +11,10 @@ import ListExpenses from './components/ِExpenses/ListExpenses'
 
 import Home from './components/Home'
 import Category from './components/Category/Create'
-import CategoryEdit from './components/Category/EditCategory'
+import Dashboard from './components/user/Dashboard'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-import ListCateogry from './components/Category/List';
 import ListEdit from './components/Category/ListEdit'
 
 
@@ -24,7 +23,7 @@ import ListEdit from './components/Category/ListEdit'
 export default function App() {
   const [isAuth, setIsAuth] = useState(false) //check if user is logged in or not
   const [user, setUser] = useState({}) //store user token
-  // const navigate = useNavigate();
+
   useEffect(() => {
     let token = localStorage.getItem('token')
     if (token) {
@@ -110,52 +109,42 @@ const fetchCategory = async () => {
             <Link className='link-item' to='/'>Home</Link><br/>
             <Link className='link-item' to="/CreateRecipet">Create Recipet</Link> <br/>
             <Link className='link-item' to="/ViewAllRecipet">View All Recipet</Link> <br/>
-            <Link className='link-item' to="/Expenses/Create">Create Expense</Link>
-            <Link className='link-item' to="/Expenses/List">List Expense</Link>
+            <Link className='link-item' to="/Expenses/Create">Create Expense</Link><br/>
+            <Link className='link-item' to="/Expenses/List">List Expense</Link><br/>
             <Link to="/Category/Create">Create Category</Link><br/>
-            {/* <Link to="/Category/List">List Category</Link><br/> */}
-            <Link to="/Category/ListEdit">list Edit </Link><br/>
+            <Link to='/dashboard'>Dashboard</Link><br/>
+            
+            <Link to="/Category/ListEdit"> Categories </Link><br/>
             <Link to='/signin'>Sign In</Link><br/>
             <Link to='/signup'>Sign Up</Link><br/>
             <Link to='/profile'>Profile</Link><br/>
-
-            <Link to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
-            <Link to="/CreateRecipet">Create Recipet</Link> <br/>
-            <Link to="/ViewAllRecipet">View All Recipet</Link> <br/>
-            {/* <Link to="/Expenses/Create">Create Expense</Link><br/>
-            <Link to="/Expenses/List">List Expense</Link><br/> */}
-            {/* <Link to="/Category/Delete">Delete </Link><br/> */}
             
+          </div>
+          <div className='second-nav-div'>
+            <Link className='link-item' to='/signin'>Sign In</Link><br/>
+            <Link className='link-item' to='/profile'>Profile</Link><br/>
             <Link className='link-item' to='/logout' onClick={logoutHandler}>Log Out</Link><br/>
           </div>
 
         </nav>
         <Routes>
-          <Route
-            path='/signin'
-            element={<Signin login={loginHandler}/>}
-          />
-          <Route
-            path='/signup'
-            element={<Signup register={registerHandler}/>}
-          />
-          <Route
-            path='/profile'
-            element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}
-          />
+          {/* USER */}
           <Route path="/" element={<Home/>}/>
+          <Route path='/signin'element={<Signin login={loginHandler}/>}/>
+          <Route path='/signup' element={<Signup register={registerHandler}/>}/>
+          <Route path='/profile' element={isAuth ? <Profile user={user} /> : <Signin login={loginHandler} />}/>
+          <Route path='/dashboard'element={<Dashboard />}  />
+          {/* RECEIPT */}
           <Route path="/CreateRecipet" element={<CreateRecipet ></CreateRecipet>}/>
           <Route path="/ViewAllRecipet"  element={isAuth ? <ViewAllRecipet user={user} /> : <Signin login={loginHandler} />}/>
           <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <Signin login={loginHandler} />}/>
+          {/* EXPENSES */}
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
 
           <Route path='/Category/Create'element={<Category />}  />
-          {/* <Route path='/Category/List'element={<ListEdit />}  /> */}
           <Route path='/Category/ListEdit'element={<ListEdit />}  />
-        
-          
-
+         
         </Routes>
       </Router>
     </>

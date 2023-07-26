@@ -55,6 +55,7 @@ export default function ListEdit(props) {
             console.log("Category updated successfully!");
             setShowEditForm(false); // Hide the edit form after saving
             fetchCategories(); // Refresh the category list
+            window.location.pathname = '/category/ListEdit'
         } catch (error) {
             console.log("Error updating category:", error);
         }
@@ -126,7 +127,7 @@ export default function ListEdit(props) {
                 </div>
                 <div>
                     <label>owner:</label>
-                    <input type='text' name="owner" placeholder="owner" onChange={changeHandler} value={selectedCategory.owner}></input>
+                    <input type='text' name="owner" placeholder="owner" value={selectedCategory.owner}></input>
                 </div>
                 <div>
                     <label>Emojis</label>
