@@ -41,12 +41,12 @@
 ##### 2. ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
 ##### 4. ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-<!-- ##### 5.![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) 
- -->
-##### 5. <img src="https://blog.openreplay.com/images/why-should-you-use-material-ui/images/hero.png" width="100px" height="40px" >
+##### 5. <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--gaI7Ff9D--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/6lu26u1oaysf8cdfiiux.png" width="100px" height="40px" >
 
-##### 6.![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white) 
-##### 7. ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+##### 6. <img src="https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/media/logo-colored@2x.png?raw=true" width="100px" height="40px" >
+
+##### 7.![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white) 
+##### 8. ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 
 ## Design
@@ -82,81 +82,114 @@
 ### Definition
 ##### A graph of definitions where given to the user to declare the idea, which are basicly the main functions of the app. The developer has to logicly declare and apply them.
 ##### 1. The user signup then signin . 
-##### 2. The user must create, view, update or delete there Expenses.  
+##### 2. The user must create, view, update or delete Expenses.  
 ##### 3. The user must view or update his profile. 
-##### 4. The user must logout from the system. 
+##### 4. The user must create, view, update or delete Catgrories.
+##### 5. The user able to scan a recipet and view its details.
+##### 6. The user is able to view the budget status and multiple graphs in dashboard.
+##### 7. The user must logout from the system.
 <br>
 
 ### Functions
-##### In the controller file, a list of functions where executed, which are:
+##### In the backend folder, a list of functions where executed, which are:
 ##### 1. Signup, Signin and signout.
 ##### 2. Create, update, and delete Expenses.
 ##### 3. Create, update, and delete Category.
 ##### 4. Upload the reciept.
-##### 4. View and edit user profile
+##### 5. View and edit user profile
+##### 6. View dashboard.
 
 ##### Some of functions where needed to apply a problem-solving strategy like: 
 
-##### 1. Applying icons using fontawsome package
+##### 1. Scanning receipt using 'Taggun' Api. 
 
 ```sh
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-
-const element = <FontAwesomeIcon icon={faSearch} />
+let url = "https://api.taggun.io/api/receipt/v1/verbose/file";
+    
+try {
+    const res = await axios.post(url, data, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'apikey': "7bdc551026fe11XXXXXXXXXXX"
+                    }})
+        
+    }
 ```
 
-##### 2. Using Proxy to change path of axios to Backend
+##### 2. Linking backend with frontend
 
 ```sh
-"proxy": "http://localhost:4006/>
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+)
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+AUTH_USER_MODEL = 'auth_app.User'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+]
+
 ```
 
-##### 3. Search function using 'Filter'
+##### 3. Using Chart component for data in dashboard
 ```sh
-const [inputValue, setInputValue] = useState('');
-
-function handleSearch() {
-        if (inputValue.length > 0) {
-            const filtered_posts = posts.filter((p) => {
-            return p.jobTitle.match(inputValue);
-        });
-        setPosts(filtered_posts)
-        console.log(filtered_posts);
-        }
-        //props.onSearch(inputValue);
-      }
+<Chart
+chartType="ColumnChart"
+data={expenses}
+options={{
+hAxis: {
+    title: "Item",
+    minValue: 0,
+},
+vAxis: {
+    title: "Amount in BD",
+}
+}}
 ```
-
-
-
-##### 4. uplaod file function using multer:
+##### 4. Message based on whether exeed the budget.
 ```sh
-const multer  = require('multer')
-//let upload = multer({ dest: 'uploads/' })
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/uploads')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    cb(null, file.fieldname + '-' + uniqueSuffix)
+function userMessage() {
+    console.log(user.budget);
+    console.log(Number(total));
+    if (user.budget == Number(total)) {
+      setMessage('You have spent exactly as per your budget!')
+    }
+    else if (user.budget > Number(total)) {
+      setMessage('You are all good, keep it up!')
+    }
+    else {
+      setMessage('You exceeded the limit, Be careful!')
+    }
   }
-})
-
-upload = multer({ storage: storage })
 ```
 
 
 ### Screenshots
-![Wireframe](/front-end/src/screenshots.png)
+![Screenshots](/mediafiles/images/screenshot.png)
 <br>
 ## Futurework and Unsolved problems
 <hr>
 
-##### 1. add emojis to the catogeries.  
-##### 2. view notification on functionalities..
-##### 3. link user bank accounts.
+##### 1. Add emojis to the catogeries.  
+##### 2. View notification on functionalities.
+##### 3. Link user bank accounts.
 
 ## Resources
 #### 1.[Wireframes](https://www.figma.com/file/vekeQ0qIF6KzdnIoElHbcn/Untitled?type=design&node-id=0%3A1&mode=design&t=Ewbkq1Aypp5a1A0j-1)
