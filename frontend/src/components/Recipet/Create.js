@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
+import HomeNavbar from "components/Navbars/HomeNavbar.js";
+import FooterHome from "components/Footer/FooterHome.js";
+import classnames from "classnames";
 import axios from 'axios'
+import PerfectScrollbar from "perfect-scrollbar";
+import {BrowserRouter as Router,Navigate, Route , Routes, Link ,useNavigate} from 'react-router-dom'
 import {
   Button,
   Card,
@@ -27,6 +32,7 @@ import {
 // import { Container, Center, Text, Box, Button, Image, VStack, Link } from '@chakra-ui/react';
 // import { AttachmentIcon } from '@chakra-ui/icons'
 
+let ps = null;
 export default function Create(){
     const [file, setFile] = useState();
     let [category, setCatogery] = useState([])
@@ -39,6 +45,22 @@ export default function Create(){
       Categoty: "",
       Image:""
   });
+
+  const [tabs, setTabs] = React.useState(1);
+  React.useEffect(() => {
+    if (navigator.platform.indexOf("Win") > -1) {
+      document.documentElement.className += " perfect-scrollbar-on";
+      document.documentElement.classList.remove("perfect-scrollbar-off");
+      let tables = document.querySelectorAll(".table-responsive");
+      for (let i = 0; i < tables.length; i++) {
+        ps = new PerfectScrollbar(tables[i]);
+      }
+    }
+    document.body.classList.toggle("profile-page");
+    // Specify how to clean up after this effect:
+
+  }, []);
+
 
     const handleUploadFile = (evt) => {
         setFile(
@@ -111,12 +133,12 @@ export default function Create(){
                   .then(res => {
                     console.log('recipt response: ', res)
                     newExpanse.PlaceName= res.data.PlaceName
-                    newExpanse.Items= ''
+                    newExpanse.Items= "items"
                     newExpanse.Amount= res.data.Amount
                     newExpanse.Category=res.data.Categoty
                     newExpanse.recipet = res.data.id
-                    const date = new Date()
-                    newExpanse.Date = date
+                    // const date = new Date()
+                    // newExpanse.Date = date
                     console.log("new expanse", newExpanse);
                     axios.post('http://127.0.0.1:8000/api/Expenses/Create/', newExpanse , {
                       headers: {
@@ -148,12 +170,13 @@ export default function Create(){
                     console.log(res)
                     console.log('recipt response: ', res)
                     newExpanse.PlaceName= res.data.PlaceName
-                    newExpanse.Items= ''
+                    newExpanse.Items= "items"
                     newExpanse.Amount= res.data.Amount
                     newExpanse.Category=res.data.Categoty
                     newExpanse.recipet = res.data.id
-                    const date = new Date()
-                    newExpanse.Date = date
+                    // const date = new Date()
+                    // newExpanse.Date = date
+                    const token = localStorage.getItem("token")
                     console.log("new expanse", newExpanse);
                     axios.post('http://127.0.0.1:8000/api/Expenses/Create/', newExpanse , {
                       headers: {
@@ -180,7 +203,139 @@ export default function Create(){
 
     return (
         <>
-      <div height="100vh" mt="30vh">
+            <>
+     <HomeNavbar />
+     <div className="wrapper">
+        <div className="page-header">
+          <img
+            alt="..."
+            className="dots"
+            src={require("assets/img/dots.png")}
+          />
+          <img
+            alt="..."
+            className="path"
+            src={require("assets/img/path4.png")}
+          />
+          <Container className="align-items-center">
+            <Row>
+              <Col lg="6" md="6">
+                <h1 className="profile-title text-left">Scan </h1>
+                <h5 className="text-on-back">Recipet</h5>
+                <p className="profile-description">
+                Easy Expense’s use receipt scanner to start saving time. 
+                Simply hold it above a receipt and watch as it magically 
+                detects, crops and automatically extracts the key information 
+                from a receipt.
+                </p>
+
+              </Col>
+
+            </Row>
+            <div className="btn-wrapper mb-3">
+                  <p className="category text-success d-inline">
+                    View recipet
+                  </p>
+                  <Button tag={Link} to="/ViewAllRecipet"
+                    className="btn-link"
+                    color="success"
+  
+                    size="sm"
+                  >
+                    <i className="tim-icons icon-minimal-right" />
+                  </Button>
+                </div>
+          </Container>
+        </div>
+
+        {/* <div className="section">
+          <Container>
+            <Row className="justify-content-between">
+              <Col md="6">
+                <Row className="justify-content-between align-items-center">
+                  <UncontrolledCarousel items={carouselItems} />
+                </Row>
+              </Col>
+              <Col md="5">
+                <h1 className="profile-title text-left">Projects</h1>
+                <h5 className="text-on-back">02</h5>
+                <p className="profile-description text-left">
+                  An artist of considerable range, Ryan — the name taken by
+                  Melbourne-raised, Brooklyn-based Nick Murphy — writes,
+                  performs and records all of his own music, giving it a warm,
+                  intimate feel with a solid groove structure. An artist of
+                  considerable range.
+                </p>
+                <div className="btn-wrapper pt-3">
+                  <Button
+                    className="btn-simple"
+                    color="primary"
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <i className="tim-icons icon-book-bookmark" /> Bookmark
+                  </Button>
+                  <Button
+                    className="btn-simple"
+                    color="info"
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <i className="tim-icons icon-bulb-63" /> Check it!
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+    */}
+        <section className="section">
+          <Container>
+          <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Recipet Scanner </h5>
+            <p class="card-text">Upload a recipet image here</p>
+            <Row>
+              <Col md="10">
+                <Card className="card-plain">
+                  <CardBody>
+                    <Form>
+                      <Row>
+                        <Col md="10">
+                          <FormGroup>
+                            <label>Upload an Image</label>
+                            <input id="file-upload" type="file" onChange={handleUploadFile}/>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Button
+                        className="btn-round float-right"
+                        color="primary"
+                        data-placement="right"
+                        id="tooltip341148792"
+                        type="button"
+                        onClick={submitPhoto}
+                      >
+                        Upload
+                      </Button>
+  
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+
+            </Row>
+            </div>
+             </div>
+          </Container>
+        </section> 
+
+        <FooterHome />
+      </div>
+
+
+    </>
+      {/* <div height="100vh" mt="30vh">
         <div textAlign="center">
           <div mt={16}>
             <div spacing={6}>
@@ -197,7 +352,7 @@ export default function Create(){
         </Button>
 </div>
         </div>
-      </div>
+      </div> */}
     </>
     )
 }

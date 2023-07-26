@@ -57,6 +57,7 @@ class CategoryCreate(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     def post(self,request):
+        print('dataaaaaaaaaaaaa',request.data)
         user = request.user
         print ("uid",user.id)
         data=request.data
@@ -99,14 +100,13 @@ class CategoryView(ListAPIView):
 
 # Expanse class views 
 class ExpanseCreate(ListCreateAPIView):
-  
-#   
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     queryset = Expenses.objects.all()
-    serializer_class = ExpanseSerializer
+    # serializer_class = ExpanseSerializer
 
     def post(self,request):
+        request.data._mutable = True
         print('dataaaaaaaaaaaaa',request.data)
         user = request.user
         print ("uid",user.id)

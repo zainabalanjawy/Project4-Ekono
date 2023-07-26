@@ -64,6 +64,9 @@ export default function HomeNavbar(props) {
     document.documentElement.classList.toggle("nav-open");
     setCollapseOpen(!collapseOpen);
   };
+  function logoutHandler(){
+    props.logout()
+  }
   const onCollapseExiting = () => {
     setCollapseOut("collapsing-out");
   };
@@ -150,11 +153,11 @@ export default function HomeNavbar(props) {
                   <i className="tim-icons icon-coins" />
                   Expanses
                 </DropdownItem>
-                <DropdownItem tag={Link} to="/profile" onClick={props.logout}>
+                <DropdownItem tag={Link} to="/profile">
                   <i className="tim-icons icon-badge" />
                   Profile
                 </DropdownItem>
-                <DropdownItem tag={Link} to="/logout" onClick={props.logout}>
+                <DropdownItem tag={Link} to="/logout" onClick={logoutHandler}>
                   <i className="tim-icons icon-alert-circle-exc" />
                   Logout
                 </DropdownItem>
