@@ -6,16 +6,15 @@ import Signin from './components/auth/Signin'
 import Signup from './components/auth/Signup'
 import Profile from './components/auth/Profile'
 import CreateExpense from './components/ِExpenses/CreateExpenses'
-import ListExpenses from './components/ِExpenses/ListExpenses';
-import ExpenseDetails from './components/ِExpenses/ExpensesDetils'
-import EditExpense from './components/ِExpenses/EditExpenses'
+import ListExpenses from './components/ِExpenses/ListExpenses'
+
+
 import Home from './components/Home'
 import Category from './components/Category/Create'
 import Dashboard from './components/user/Dashboard'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-import ListCateogry from './components/Category/List';
 import ListEdit from './components/Category/ListEdit'
 
 
@@ -142,9 +141,7 @@ const fetchCategory = async () => {
           {/* EXPENSES */}
           <Route path='/Expenses/Create'element={<CreateExpense />}  />
           <Route path='/Expenses/List'element={<ListExpenses />}  />
-          <Route path='/Expenses/Details'element={<ExpenseDetails />} />
-          <Route path='/Expenses/Edit'element={<EditExpense />} />
-          {/* CATEGORIES */}
+
           <Route path='/Category/Create'element={<Category />}  />
           <Route path='/Category/ListEdit'element={<ListEdit />}  />
          

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-export default function ListExpenses(props) {
+
+export default function ListExpenses() {
     const navigate = useNavigate();
     const [showEditForm, setShowEditForm] = useState(false);
     const[Category,setCategory] = useState([]);
@@ -19,6 +18,7 @@ export default function ListExpenses(props) {
         fetchExpenses();
         fetchCategory();
     }, []);
+    //List all Category
     const fetchCategory = async () => {
     const token = localStorage.getItem("token")
     console.log('tokkkken',token);
@@ -30,15 +30,16 @@ export default function ListExpenses(props) {
       console.log("response___", response)
       setCategory(response.data)
   }
+  // Category mapping to retrive whole category obj
   const category = Category.map((category, index) => {
     console.log('Category:', category)
     return(
       <>
-        {/* <option value={category.id}>{category.Category_name}</option> */}
-        <span>{category.Category_name}</span>
+        <option value={category.id}>{category.Category_name}</option>
       </>
     )
   })
+   //Delete Expenses function
     const deleteHandler = async (id) => {
         try {
             const response = await axios.delete(
@@ -46,11 +47,11 @@ export default function ListExpenses(props) {
             );
             console.log("deleted successfully!");
             window.location.reload(false)
-            // navigate('/Delete/ViewAll');
         } catch (error) {
             console.log("Something went wrong", error);
         }
     };
+    //This function to list all Exp
     const fetchExpenses = async () => {
         const token = localStorage.getItem("token");
         console.log('tokkkken', token);
@@ -62,7 +63,9 @@ export default function ListExpenses(props) {
         console.log(response.data);
         setExpenses(response.data);
     };
+    // save the expense to the data
     const saveExpense = async () => {
+      console.log("Selected Exp : ", selectedExpenses)
         try {
             const response = await axios.put(
                 `http://127.0.0.1:8000/api/Expenses/${selectedExpenses.id}/Update/`,
@@ -70,11 +73,12 @@ export default function ListExpenses(props) {
             );
             console.log("Exp updated successfully!");
             setShowEditForm(false); // Hide the edit form after saving
-            fetchExpenses(); // Refresh the category list
+            fetchExpenses(); // Refresh the Exp list
         } catch (error) {
             console.log("Error updating category:", error);
         }
     };
+    //Edit Exp
     const editHandler = async (id) => {
         setShowEditForm(true);
         try {
@@ -105,9 +109,6 @@ export default function ListExpenses(props) {
                                 </div>
                                 <div>
                                 <label>Category: {exp.Category.Category_name}  </label>
-                                {/* <select name='Category'>
-                                 {category}
-                                </select> */}
                                 </div>
                             </div>
                         </div>
@@ -132,22 +133,26 @@ export default function ListExpenses(props) {
             <div>
                 <h1>Edit Expenses</h1>
                 <div>
-                    <label>place Name</label>
+                    <label>place Name: </label>
                     <input type='text' name="PlaceName" placeholder="PlaceName" onChange={changeHandler} value={selectedExpenses.PlaceName}></input>
                     <input class="form-control" type="hidden" name="id" value={selectedExpenses.id} onChange={changeHandler} />
                 </div>
                 <div>
-                    <label>Items</label>
+                    <label>Items: </label>
                     <input type='text' name="Items" placeholder="Items" onChange={changeHandler} value={selectedExpenses.Items}></input>
                 </div>
                 <div>
-                     <label>Amount:</label>
+                     <label>Amount: </label>
                     <input type='text' name="Amount" placeholder="Amount" onChange={changeHandler} value={selectedExpenses.Amount}></input>
                 </div>
+                {/* <div>
+                     <label>Category: </label>
+                     <input type='text' name="Category" placeholder="Category" onChange={changeHandler} value={selectedExpenses.Category}></input>
+                </div> */}
                 <div>
-                 <select name='Category'>
+                <select name='Category' onChange={changeHandler}>
                 {category}
-                 </select>
+                </select>
                  </div>
                 <button type="button" class="btn bg-gradient-primary btn-lg" onClick={saveExpense}>Save</button>
             </div>

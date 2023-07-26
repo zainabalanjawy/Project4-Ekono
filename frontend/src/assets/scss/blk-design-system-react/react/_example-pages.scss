@@ -1,0 +1,9 @@
+// style for the landing page
+.index-page .squares{
+  background: linear-gradient(21deg, #e4007c 40%, #ffbd39 80%);
+}
+.register-page, .section.section-signup{
+  .squares, .square {
+    background: linear-gradient(21deg, #e4007c 40%, #ffbd39 80%);
+  }
+}
