@@ -3,11 +3,14 @@ import React, {useState, useEffect,} from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate} from 'react-router-dom'
-const ListCateogry = () => {
+import ListEdit from './ListEdit';
+export default function ListCateogry(props) {
+
     // const list category = () => {
         const [category, setCatogery] = useState([])
         const navigate = useNavigate();
-        // const UpdateHandler = any
+        const [showEdit,setShowEdit]=useState(false)
+        
         const deleteHandler = async (id) => {
             try {
               const response = await axios.delete(
@@ -23,13 +26,13 @@ const ListCateogry = () => {
         const fetchCategory = async () => {
             const token = localStorage.getItem("token")
             console.log('tokkkken',token);
-            const list = await axios.get('http://127.0.0.1:8000/api/category/list/',{
+            const response = await axios.get('http://127.0.0.1:8000/api/category/list/',{
                 headers: {
                   'Authorization': `Token ${token}`
                 } 
               })
-            console.log(list.data)
-            setCatogery(list.data)
+            console.log(response.data)
+            setCatogery(response.data)
         }
         useEffect(() => {
             fetchCategory();
@@ -54,7 +57,12 @@ const ListCateogry = () => {
               {/* <button type="button" class="btn bg-gradient-primary btn-lg">Details
               </button> */}
               <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => deleteHandler(cat.id)}>Delete</button>
-              {/* <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => UpdateHandler(cat.id)}>Edit</button> */}
+              {/* <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => navigate('/', {state: {cat}})}>Edit</button> */}
+              <button type="button" class="btn bg-gradient-primary btn-lg" onClick={()=>{setShowEdit(true)}}>Edit</button>
+              {showEdit?
+              <ListEdit/>
+              :''
+            }
               
               
             </div>
@@ -70,4 +78,3 @@ const ListCateogry = () => {
     </container>
     )
 }
-export default ListCateogry  ;
