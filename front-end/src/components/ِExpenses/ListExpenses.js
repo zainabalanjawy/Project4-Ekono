@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 export default function ListEdit(props) {
 
@@ -22,6 +20,7 @@ export default function ListEdit(props) {
         fetchCategory();
     }, []);
 
+    //List all Category 
     const fetchCategory = async () => {
     const token = localStorage.getItem("token")
     console.log('tokkkken',token);
@@ -34,6 +33,7 @@ export default function ListEdit(props) {
       setCategory(response.data)
   }
 
+  // Category mapping to retrive whole category obj
   const category = Category.map((category, index) => {
     console.log('Category:', category)
     return(
@@ -43,6 +43,7 @@ export default function ListEdit(props) {
     )
   })
 
+   //Delete Expenses function
     const deleteHandler = async (id) => {
         try {
             const response = await axios.delete(
@@ -50,11 +51,12 @@ export default function ListEdit(props) {
             );
             console.log("deleted successfully!");
             window.location.reload(false)
-            // navigate('/Delete/ViewAll');
         } catch (error) {
             console.log("Something went wrong", error);
         }
     };
+
+    //This function to list all Exp
     const fetchExpenses = async () => {
         const token = localStorage.getItem("token");
         console.log('tokkkken', token);
@@ -66,7 +68,10 @@ export default function ListEdit(props) {
         console.log(response.data);
         setExpenses(response.data);
     };
+
+    // save the expense to the data
     const saveExpense = async () => {
+      console.log("Selected Exp : ", selectedExpenses)
         try {
             const response = await axios.put(
                 `http://127.0.0.1:8000/api/Expenses/${selectedExpenses.id}/Update/`,
@@ -74,11 +79,13 @@ export default function ListEdit(props) {
             );
             console.log("Exp updated successfully!");
             setShowEditForm(false); // Hide the edit form after saving
-            fetchExpenses(); // Refresh the category list
+            fetchExpenses(); // Refresh the Exp list
         } catch (error) {
             console.log("Error updating category:", error);
         }
     };
+
+    //Edit Exp
     const editHandler = async (id) => {
         setShowEditForm(true);
         try {
@@ -92,13 +99,14 @@ export default function ListEdit(props) {
             console.log("Error fetching category data for editing:", error);
         }
     };
+
     const changeHandler = (e) => {
         const { name, value } = e.target;
         setSelectedExpenses((prevExp) => ({ ...prevExp, [name]: value }));
     };
+
     const allExpense = Expenses.map((exp, index) => {
         return (
-         
             <div class="col-lg-4 col-md-8" key={index}>
                 <div class="card">
                     <div class="card-body">
@@ -150,17 +158,16 @@ export default function ListEdit(props) {
                     <input type='text' name="Amount" placeholder="Amount" onChange={changeHandler} value={selectedExpenses.Amount}></input> 
                 </div>
 
-                <div>
+                {/* <div>
                      <label>Category: </label>
                      <input type='text' name="Category" placeholder="Category" onChange={changeHandler} value={selectedExpenses.Category}></input> 
-                </div>
+                </div> */}
                 <div>
-                  
-                 <select name='Category'>
-                {category}
-                 </select>
-                 </div>
 
+                <select name='Category' onChange={changeHandler}>
+                {category}
+                </select>
+                 </div>
                 <button type="button" class="btn bg-gradient-primary btn-lg" onClick={saveExpense}>Save</button>
             </div>
         );
