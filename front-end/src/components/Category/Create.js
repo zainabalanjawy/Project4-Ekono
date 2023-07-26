@@ -25,6 +25,7 @@ export default function Create(props) {
             } 
           })
         .then(res => {
+            window.location.pathname = 'Category/ListEdit/'
           console.log('registerhandler response: ', res)
         }).catch(err => {
           console.log(err)
@@ -44,10 +45,7 @@ export default function Create(props) {
                     <label> Description </label>
                     <input type='text' name="Description" placeholder="Description " onChange={changeHandler}></input>
                 </div>
-                <div>
-                    <label> owner: </label>
-                    <input type='text' name="owner" placeholder="owner" onChange={changeHandler}></input>
-                </div>
+
                 <div>
                     <label> Emojis </label>
                     <input type="Emojis" name="Emojis" placeholder="Emojis" onChange={changeHandler}></input>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-export default function ListEdit(props) {
 
+export default function ListExpenses() {
     const navigate = useNavigate();
     const [showEditForm, setShowEditForm] = useState(false);
     const[Category,setCategory] = useState([]);
@@ -13,26 +13,23 @@ export default function ListEdit(props) {
         Items: '',
         Amount: '',
         Category: '',
-
     });
     useEffect(() => {
         fetchExpenses();
         fetchCategory();
     }, []);
-
-    //List all Category 
+    //List all Category
     const fetchCategory = async () => {
     const token = localStorage.getItem("token")
     console.log('tokkkken',token);
       const response = await axios.get(`http://127.0.0.1:8000/api/category/list/`,{
         headers: {
           'Authorization': `Token ${token}`
-        } 
+        }
       })
       console.log("response___", response)
       setCategory(response.data)
   }
-
   // Category mapping to retrive whole category obj
   const category = Category.map((category, index) => {
     console.log('Category:', category)
@@ -42,7 +39,6 @@ export default function ListEdit(props) {
       </>
     )
   })
-
    //Delete Expenses function
     const deleteHandler = async (id) => {
         try {
@@ -55,7 +51,6 @@ export default function ListEdit(props) {
             console.log("Something went wrong", error);
         }
     };
-
     //This function to list all Exp
     const fetchExpenses = async () => {
         const token = localStorage.getItem("token");
@@ -68,7 +63,6 @@ export default function ListEdit(props) {
         console.log(response.data);
         setExpenses(response.data);
     };
-
     // save the expense to the data
     const saveExpense = async () => {
       console.log("Selected Exp : ", selectedExpenses)
@@ -84,7 +78,6 @@ export default function ListEdit(props) {
             console.log("Error updating category:", error);
         }
     };
-
     //Edit Exp
     const editHandler = async (id) => {
         setShowEditForm(true);
@@ -99,12 +92,10 @@ export default function ListEdit(props) {
             console.log("Error fetching category data for editing:", error);
         }
     };
-
     const changeHandler = (e) => {
         const { name, value } = e.target;
         setSelectedExpenses((prevExp) => ({ ...prevExp, [name]: value }));
     };
-
     const allExpense = Expenses.map((exp, index) => {
         return (
             <div class="col-lg-4 col-md-8" key={index}>
@@ -118,12 +109,10 @@ export default function ListEdit(props) {
                                 </div>
                                 <div>
                                 <label>Category: {exp.Category.Category_name}  </label>
-            
                                 </div>
                             </div>
                         </div>
                         <p class="mt-4">Amount: {exp.Amount}</p>
-                     
                         <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => deleteHandler(exp.id)}>Delete</button>
                         <button type="button" class="btn bg-gradient-primary btn-lg" onClick={() => editHandler(exp.id)}>Edit</button>
                     </div>
@@ -152,18 +141,15 @@ export default function ListEdit(props) {
                     <label>Items: </label>
                     <input type='text' name="Items" placeholder="Items" onChange={changeHandler} value={selectedExpenses.Items}></input>
                 </div>
-
                 <div>
                      <label>Amount: </label>
-                    <input type='text' name="Amount" placeholder="Amount" onChange={changeHandler} value={selectedExpenses.Amount}></input> 
+                    <input type='text' name="Amount" placeholder="Amount" onChange={changeHandler} value={selectedExpenses.Amount}></input>
                 </div>
-
                 {/* <div>
                      <label>Category: </label>
-                     <input type='text' name="Category" placeholder="Category" onChange={changeHandler} value={selectedExpenses.Category}></input> 
+                     <input type='text' name="Category" placeholder="Category" onChange={changeHandler} value={selectedExpenses.Category}></input>
                 </div> */}
                 <div>
-
                 <select name='Category' onChange={changeHandler}>
                 {category}
                 </select>

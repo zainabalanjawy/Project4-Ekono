@@ -23,9 +23,9 @@ export default function Profile(props) {
     })
     // console.log("profile response.data: ", response.data[0])
     setUser(response.data[0])
-    console.log('User Info:' ,user)    
+    console.log('User Info:', user)
   }
-  function handleEditProfile(e){
+  function handleEditProfile(e) {
     e.preventDefault()
     setEdit(true)
   }
@@ -33,40 +33,46 @@ export default function Profile(props) {
     const att = e.target.name
     const val = e.target.value
 
-    let currentUser = {...user}
+    let currentUser = { ...user }
     currentUser[att] = val
     setUser(currentUser)
   }
-  async function handleSubmitProfile(e){
+  async function handleSubmitProfile(e) {
     e.preventDefault()
-    try{
+    try {
       console.log(user.id)
-      const response =  await axios.put(`http://127.0.0.1:8000/auth/${user.id}/update/`, user)
+      const response = await axios.put(`http://127.0.0.1:8000/auth/${user.id}/update/`, user)
       console.log(response.data)
       setEdit(false)
       setUser(response.data)
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
-  async function handleDeleteAccount(e){
+  async function handleDeleteAccount(e) {
     e.preventDefault()
+    const token = localStorage.getItem('token')
 
-    const response =  await axios.delete(`http://127.0.0.1:8000/auth/${user.id}/delete/`, user)
-    try{
+    const response = await axios.delete(`http://127.0.0.1:8000/auth/${user.id}/delete/`, user, {
+      headers:
+      {
+        'Authorization': `Token ${token}`
+      }
+    })
+    try {
 
-      if(response.status === 204){
+      if (response.status === 204) {
         const token = localStorage.removeItem('token')
         console.log('Account deleted successfully')
         navigate('/')
-      }else{
+      } else {
         console.log('Something went wrong.')
       }
-    }catch(error){
+    } catch (error) {
       console.log(error.message)
     }
   }
-  if(!edit){
+  if (!edit) {
     return (
       <>
         <div>Profile</div>
@@ -101,7 +107,7 @@ export default function Profile(props) {
       </>
     )
   }
-  else{
+  else {
     return (
       <>
         <div>Edit Profile</div>

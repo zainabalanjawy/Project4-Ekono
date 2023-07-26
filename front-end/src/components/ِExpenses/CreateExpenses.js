@@ -40,6 +40,7 @@ import { BrowserRouter as Router, Routes, Route, Link,useNavigate, Navigate } fr
           }
         })
       .then(res => {
+        window.location.pathname = 'Expenses/List'
         console.log('response: ', res)
       }).catch(err => {
         console.log(err)
