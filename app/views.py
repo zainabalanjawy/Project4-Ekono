@@ -107,6 +107,7 @@ class ExpanseCreate(ListCreateAPIView):
     serializer_class = ExpanseSerializer
 
     def post(self,request):
+        print('dataaaaaaaaaaaaa',request.data)
         user = request.user
         print ("uid",user.id)
         data=request.data
