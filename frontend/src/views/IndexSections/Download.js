@@ -33,7 +33,10 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 export default function Download() {
-  let zainab = "github.com/zainabalanjawy/Portfolio"
+  let zainab = "https://www.linkedin.com/in/zainab-alanjawi-237949164/"
+  let mariam = "https://www.linkedin.com/in/mariam-merza-0b694121b/"
+  let jawaher = "https://www.linkedin.com/in/jawahermohamed/"
+  let fatima = "https://www.linkedin.com/in/fatima-mohammed-071575231/"
   return (
           <div className="wrapper">
         <div className="page-header">
@@ -147,7 +150,7 @@ export default function Download() {
                     <img
                       alt="..."
                       className="img-center img-fluid"
-                      src={require("assets/img/zainab.png")}
+                      src={require("assets/img/zainabAvatar.png")}
                     />
                   </CardHeader>
                   <CardBody>
@@ -156,6 +159,9 @@ export default function Download() {
                         <h4 className="text-uppercase">Zainab Al-Anjawi</h4>
                         <span color="primary" className="primary">"Reach your life goals, one zero at a time."</span>
                         <hr className="line-warning" />
+                        <br></br>
+                     
+         
                       </Col>
                     </Row>
                     <Row>
@@ -163,12 +169,15 @@ export default function Download() {
                     </Row>
                   </CardBody>
                   <CardFooter className="text-center">
-                    <Link to={`${zainab}`} />
+          
                   
                     <Button className="btn-simple" color="warning">
-                      Github
-                      <a href="https://github.com/zainabalanjawy/Portfolio"/>
+                 
+                    <Link to={`${zainab}`} >
+                    linkedin
+                    </Link>
                     </Button>
+                 
                   </CardFooter>
                 </Card>
               </Col>
@@ -178,21 +187,23 @@ export default function Download() {
                     <img
                       alt="..."
                       className="img-center img-fluid"
-                      src={require("assets/img/etherum.png")}
+                      src={require("assets/img/jwaherAvatar.png")}
                     />
                   </CardHeader>
                   <CardBody>
                     <Row>
                       <Col className="text-center" md="12">
                         <h4 className="text-uppercase">Jawaher Mohmmed</h4>
-                        <span>""</span>
+                        <span>"Don't stop when you fail, because failure is part of success"</span>
                         <hr className="line-success" />
                       </Col>
                     </Row>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button className="btn-simple" color="success">
-                      Github
+                    <Link to={`${jawaher}`} >
+                    linkedin
+                    </Link>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -203,21 +214,23 @@ export default function Download() {
                     <img
                       alt="..."
                       className="img-center img-fluid"
-                      src={require("assets/img/ripp.png")}
+                      src={require("assets/img/MariamAvatar.png")}
                     />
                   </CardHeader>
                   <CardBody>
                     <Row>
                       <Col className="text-center" md="12">
                         <h4 className="text-uppercase">Mariam Merza</h4>
-                        <span>""</span>
+                        <span>"Your present situation is not your final destination. The best is yet to come"</span>
                         <hr className="line-info" />
                       </Col>
                     </Row>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button className="btn-simple" color="info">
-                      Github
+                    <Link to={`${mariam}`} >
+                    linkedin
+                    </Link>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -228,7 +241,7 @@ export default function Download() {
                     <img
                       alt="..."
                       className="img-center img-fluid"
-                      src={require("assets/img/ripp.png")}
+                      // src={require("assets/img/fatimaAvatar.png")}
                     />
                   </CardHeader>
                   <CardBody>
@@ -243,7 +256,9 @@ export default function Download() {
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button className="btn-simple" color="primary">
-                      Github
+                    <Link to={`${fatima}`} >
+                      linkedin
+                    </Link>
                     </Button>
                   </CardFooter>
                 </Card>

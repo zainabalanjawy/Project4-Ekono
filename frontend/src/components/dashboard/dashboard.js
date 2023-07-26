@@ -75,10 +75,12 @@ export default function Dashboard() {
 
   //change the user message based on whether or not they exeed the budget
   function userMessage() {
-    if (user.budget = total.toFixed(2)) {
-      setMessage('You have spent exactly as per your buget!')
+    console.log(user.budget);
+    console.log(Number(total));
+    if (user.budget == Number(total)) {
+      setMessage('You have spent exactly as per your budget!')
     }
-    if (user.budget > total.toFixed(2)) {
+    else if (user.budget > Number(total)) {
       setMessage('You are all good, keep it up!')
     }
     else {
