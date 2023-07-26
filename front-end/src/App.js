@@ -108,17 +108,17 @@ const fetchCategory = async () => {
         <nav>
           <div className='first-nav-div'>
             <Link className='link-item' to='/'>Home</Link><br/>
-            {/* <Link className='link-item' to="/CreateRecipet">Create Recipet</Link> <br/> */}
-            {/* <Link className='link-item' to="/ViewAllRecipet">View All Recipet</Link> <br/> */}
+            <Link className='link-item' to="/CreateRecipet">Create Recipet</Link> <br/>
+            <Link className='link-item' to="/ViewAllRecipet">View All Recipet</Link> <br/>
             <Link className='link-item' to="/Expenses/Create">Create Expense</Link><br/>
             <Link className='link-item' to="/Expenses/List">List Expense</Link><br/>
             <Link to="/Category/Create">Create Category</Link><br/>
+            <Link to='/dashboard'>Dashboard</Link><br/>
             
-            <Link to="/Category/ListEdit">Edit Categories </Link><br/>
+            <Link to="/Category/ListEdit"> Categories </Link><br/>
             <Link to='/signin'>Sign In</Link><br/>
             <Link to='/signup'>Sign Up</Link><br/>
             <Link to='/profile'>Profile</Link><br/>
-            {/* <Link to="/Category/Delete">Delete </Link><br/> */}
             
           </div>
           <div className='second-nav-div'>
@@ -146,7 +146,7 @@ const fetchCategory = async () => {
           <Route path='/Expenses/Edit'element={<EditExpense />} />
           {/* CATEGORIES */}
           <Route path='/Category/Create'element={<Category />}  />
-          <Route path='/Category/List'element={<ListCateogry />}  />
+          <Route path='/Category/ListEdit'element={<ListEdit />}  />
          
         </Routes>
       </Router>

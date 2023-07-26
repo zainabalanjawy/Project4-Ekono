@@ -54,4 +54,3 @@ class PopulateRecipetSerializer(RecipetSerializer):
 class PopulateExpanseSerilizer(ExpanseSerializer):
     owner = UserSerializer()
     Category = CategorySerializer()
-    Recipet = RecipetSerializer()
