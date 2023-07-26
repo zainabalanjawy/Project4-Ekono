@@ -157,7 +157,8 @@ export default function HomeNavbar(props) {
                   <i className="tim-icons icon-badge" />
                   Profile
                 </DropdownItem>
-                <DropdownItem tag={Link} to="/logout" onClick={logoutHandler}>
+               
+                <DropdownItem onClick={props.logout}>
                   <i className="tim-icons icon-alert-circle-exc" />
                   Logout
                 </DropdownItem>

@@ -141,7 +141,7 @@ export default function ViewAll(props){
 
     return (
     <>
-     <HomeNavbar />
+     <HomeNavbar logout={props.logout}/>
      <div className="wrapper">
         <div className="page-header">
           <img

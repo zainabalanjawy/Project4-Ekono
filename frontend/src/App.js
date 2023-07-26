@@ -9,7 +9,7 @@ import CreateExpense from './components/ِExpenses/CreateExpenses'
 import ListExpenses from './components/ِExpenses/ListExpenses';
 import ExpenseDetails from './components/ِExpenses/ExpensesDetils'
 import EditExpense from './components/ِExpenses/EditExpenses'
-import Dashboard from './components/dashboard/dashboard.js'
+import Dashboard from './components/dashboard/dashboard'
 import LandingPage from "./views/examples/LandingPage";
 import RegisterPage from "views/examples/RegisterPage.js";
 import LoginPage from "views/examples/LoginPage";
@@ -110,9 +110,9 @@ export default function App() {
       <Route path="/landing-page" element={<LandingPage />} />
       <Route path="/register-page" element={<RegisterPage register={registerHandler} />} />
        <Route path="/login-page" element={<LoginPage login={loginHandler} />} />
-      <Route path="/profile-page" element={isAuth ? <ProfilePage /> : <LoginPage login={loginHandler}/>} />
-      <Route path="/home-page" element={isAuth ? <HomePage />: <LoginPage login={loginHandler}/>} />
-      <Route path="/dashboard" element={isAuth ?<Dashboard /> : <LoginPage login={loginHandler}/>} />
+      <Route path="/profile-page" element={isAuth ? <ProfilePage logout={logoutHandler} /> : <LoginPage login={loginHandler}/>} />
+      <Route path="/home-page" element={isAuth ? <HomePage logout={logoutHandler}/>: <LoginPage login={loginHandler}/>} />
+      <Route path="/dashboard" element={isAuth ?<Dashboard logout={logoutHandler} /> : <LoginPage login={loginHandler}/>} />
       <Route path="*" element={<Navigate to="/components" replace />} />
       <Route path="/logout" logout={logoutHandler} />
 
@@ -126,18 +126,18 @@ export default function App() {
           />
           <Route
             path='/profile'
-            element={isAuth ? <Profile user={user} /> : <LoginPage login={loginHandler} />}
+            element={isAuth ? <Profile user={user} logout={logoutHandler} /> : <LoginPage login={loginHandler}  />}
           />
           {/* <Route path="/" element={<Home/>}/> */}
-          <Route path="/CreateRecipet" element={isAuth ? <CreateRecipet ></CreateRecipet>: <LoginPage login={loginHandler}/>}/>
-          <Route path="/ViewAllRecipet"  element={isAuth ? <ViewAllRecipet user={user} /> : <LoginPage login={loginHandler} />}/>
-          <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet user={user} /> : <LoginPage login={loginHandler} />}/>
-          <Route path='/Expenses/Create'element={isAuth ? <CreateExpense />: <LoginPage login={loginHandler}/>}  />
-          <Route path='/Expenses/List'element={isAuth ? <ListExpenses />: <LoginPage login={loginHandler}/>}  />
-          <Route path='/Expenses/Details'element={isAuth ? <ExpenseDetails />: <LoginPage login={loginHandler}/>} />
-          <Route path='/Expenses/Edit'element={isAuth ? <EditExpense />: <LoginPage login={loginHandler}/>} />
-          <Route path='/Category/Create'element={isAuth ? <Category />: <LoginPage login={loginHandler}/>}  />
-          <Route path='/Category/List'element={isAuth ? <ListCateogry />: <LoginPage login={loginHandler}/>}  />
+          <Route path="/CreateRecipet" element={isAuth ? <CreateRecipet logout={logoutHandler} ></CreateRecipet>: <LoginPage login={loginHandler}/>}/>
+          <Route path="/ViewAllRecipet"  element={isAuth ? <ViewAllRecipet logout={logoutHandler} user={user} /> : <LoginPage login={loginHandler} />}/>
+          <Route path="/ViewRecipet" element={isAuth ? <ViewRecipet logout={logoutHandler} user={user} /> : <LoginPage login={loginHandler} />}/>
+          <Route path='/Expenses/Create'element={isAuth ? <CreateExpense logout={logoutHandler} />: <LoginPage login={loginHandler}/>}  />
+          <Route path='/Expenses/List'element={isAuth ? <ListExpenses logout={logoutHandler} />: <LoginPage login={loginHandler}/>}  />
+          <Route path='/Expenses/Details'element={isAuth ? <ExpenseDetails logout={logoutHandler} />: <LoginPage login={loginHandler}/>} />
+          <Route path='/Expenses/Edit'element={isAuth ? <EditExpense logout={logoutHandler} />: <LoginPage login={loginHandler}/>} />
+          <Route path='/Category/Create'element={isAuth ? <Category logout={logoutHandler} />: <LoginPage login={loginHandler}/>}  />
+          <Route path='/Category/List'element={isAuth ? <ListCateogry logout={logoutHandler} />: <LoginPage login={loginHandler}/>}  />
           {/* <Route path='/Category/Delete'element={<DeleteCateogry />}  /> */}
         </Routes>
     
