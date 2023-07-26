@@ -34,7 +34,7 @@ class Expenses(models.Model):
     Items = models.CharField(max_length=200)
     Amount = models.FloatField(max_length=15)
     owner = models.ForeignKey(User, related_name='User', on_delete=models.CASCADE)
-    Category=models.ForeignKey(Category, related_name='Category',on_delete=models.CASCADE, blank=True, null=True)
+    Category=models.ForeignKey(Category, related_name='Category',on_delete=models.CASCADE)
     recipet = models.ForeignKey(Recipet,related_name='Recipt', on_delete=models.CASCADE,blank=True,  null=True)
     Date = models.DateField(auto_now=True)
 
