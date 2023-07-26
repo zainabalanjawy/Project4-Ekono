@@ -50,7 +50,7 @@ export default function HomePage(props) {
   }, []);
   return (
     <>
-      <HomeNavbar />
+      <HomeNavbar logout={props.logout}/>
       <div className="wrapper">
         <div className="page-header">
           <img
@@ -99,7 +99,7 @@ export default function HomePage(props) {
                 </p>
                 <div className="btn-wrapper mb-3">
                   <p className="category text-success d-inline">
-                    Go to dashboard
+                    <a href="/dashboard">Go to dashboard</a>
                   </p>
                   <Button tag={Link} to="/dashboard"
                     className="btn-link"
