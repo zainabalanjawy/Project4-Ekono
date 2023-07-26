@@ -59,17 +59,17 @@
 <br>
 <br>
 
-### UserStories
-##### A user story is a general explanation of functionalities written from the perspective of the user. It moves through differnt process till it reach to the testing and the deployment part. 
-
-![userstories](/mediafiles/images/userstories.png)
-<br>
-
 ### ERD
 ##### An Entity Relationship Digram shows main entities that used inside the portal, fields realted to each one of them and the relationship between these entities. 
 <br>
 
 ![ERD](/mediafiles/images/Expenss.png)
+<br>
+
+### UserStories
+##### A user story is a general explanation of functionalities written from the perspective of the user. It moves through differnt process till it reach to the testing and the deployment part. 
+
+![userstories](/mediafiles/images/userstories.png)
 <br>
 
 ### Planning
