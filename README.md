@@ -101,7 +101,38 @@
 
 ##### Some of functions where needed to apply a problem-solving strategy like: 
 
-##### 1. Scanning receipt using 'Taggun' Api. 
+##### 1. Using Chart component for data in dashboard
+```sh
+<Chart
+chartType="ColumnChart"
+data={expenses}
+options={{
+hAxis: {
+    title: "Item",
+    minValue: 0,
+},
+vAxis: {
+    title: "Amount in BD",
+}
+}}
+```
+##### 2. Message based on whether exeed the budget.
+```sh
+function userMessage() {
+    console.log(user.budget);
+    console.log(Number(total));
+    if (user.budget == Number(total)) {
+      setMessage('You have spent exactly as per your budget!')
+    }
+    else if (user.budget > Number(total)) {
+      setMessage('You are all good, keep it up!')
+    }
+    else {
+      setMessage('You exceeded the limit, Be careful!')
+    }
+  }
+```
+##### 3. Scanning receipt using 'Taggun' Api. 
 
 ```sh
 let url = "https://api.taggun.io/api/receipt/v1/verbose/file";
@@ -116,7 +147,7 @@ try {
     }
 ```
 
-##### 2. Linking backend with frontend
+##### 4. Linking backend with frontend
 
 ```sh
 REST_FRAMEWORK = {
@@ -148,37 +179,6 @@ CORS_ALLOWED_ORIGINS = [
 
 ```
 
-##### 3. Using Chart component for data in dashboard
-```sh
-<Chart
-chartType="ColumnChart"
-data={expenses}
-options={{
-hAxis: {
-    title: "Item",
-    minValue: 0,
-},
-vAxis: {
-    title: "Amount in BD",
-}
-}}
-```
-##### 4. Message based on whether exeed the budget.
-```sh
-function userMessage() {
-    console.log(user.budget);
-    console.log(Number(total));
-    if (user.budget == Number(total)) {
-      setMessage('You have spent exactly as per your budget!')
-    }
-    else if (user.budget > Number(total)) {
-      setMessage('You are all good, keep it up!')
-    }
-    else {
-      setMessage('You exceeded the limit, Be careful!')
-    }
-  }
-```
 
 
 ### Screenshots
